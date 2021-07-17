@@ -1,16 +1,15 @@
 <template lang="pug">.
-    #app
-        router-view
+    .topic(data-topic="1-1")
+        |主题 1-1
 </template>
 
 
 
 <script lang="ts">
-    import { defineComponent, onMounted } from "vue"
-    import { integration } from "./core";
+    import { defineComponent } from "vue"
 
     export default defineComponent({
-        name: 'app',
+        name: 'topic-1-1',
         components:
         {
             
@@ -19,12 +18,6 @@
         {
             // data ----------------------------------------------------------------------------------------------------
             // 0 //
-
-            // life cycles ---------------------------------------------------------------------------------------------
-            onMounted(() => {
-                console.log(integration);
-                
-            })
             // return --------------------------------------------------------------------------------------------------
         },
     })
@@ -33,28 +26,11 @@
 
 
 <style lang="stylus">
-@import '~@/assets/stylesheets/overall/index.styl'
 @import _colorset
 
 // 状态样式 -------------------------------------------------------------------------------------------------------------
-body
-    &.o-cursor-wait
-        &, *
-            cursor wait !important
-    &.o-cursor-progress
-        &, *
-            cursor progress !important
-    &.o-cursor-ew-resize
-        &, *
-            cursor ew-resize !important
-    &.o-cursor-move
-        &, *
-            cursor move !important
 
 // 基础样式 -------------------------------------------------------------------------------------------------------------
-#app
-    // 
-
 .
     // 
 </style>
