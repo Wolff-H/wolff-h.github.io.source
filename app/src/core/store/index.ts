@@ -1,4 +1,4 @@
-import { createStore } from "vuex"
+import { createLogger, createStore } from "vuex"
 
 import Demos, { _Module as _Demos } from "./Demos"
 
@@ -40,8 +40,8 @@ interface _S
 
 const Module =
 {
-    // strict: process.env.NODE_ENV !== 'production',
-    // plugins: process.env.NODE_ENV !== 'production' ? [createLogger()] : [],
+    strict: process.env.NODE_ENV !== 'production',
+    plugins: process.env.NODE_ENV !== 'production' ? [createLogger()] : [],
 
     namespaced: true,
     modules,

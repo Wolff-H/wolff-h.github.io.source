@@ -5,16 +5,25 @@
         .content
             el-tree.tree(
                 :data="topic_tree_data"
+                node-key="code_full"
                 @node-click="onNodeClick"
+                :current-node-key="current_topic"
             )
+                template(#default="{ node, data }")
+                    span.title(
+                        :class="current_topic === data.code_full ? 'o-current' : ''"
+                    )
+                        |{{   data.label   }}
 </template>
 
 
 
 <script lang="ts">
-    import router from "@/core/router";
+    import { demo_name_to_module_name_dict } from "@/core/logics/extensions/demos";
+    import router from "@/core/router"
+    import store from "@/core/store"
     import { DemoName } from "@/core/types/extensions/demos"
-    import { defineComponent } from "vue"
+    import { computed, defineComponent } from "vue"
     import { Topic, TopicTreeData } from "../../types/indexed-layout/topic-tree"
 
     export default defineComponent({
@@ -40,42 +49,9 @@
         {
             // data ----------------------------------------------------------------------------------------------------
             // 0 //
-            const demo_data =
-            [{
-            label: '一级 1',
-            children: [{
-                label: '二级 1-1',
-                children: [{
-                label: '三级 1-1-1'
-                }]
-            }]
-            }, {
-            label: '一级 2',
-            children: [{
-                label: '二级 2-1',
-                children: [{
-                label: '三级 2-1-1'
-                }]
-            }, {
-                label: '二级 2-2',
-                children: [{
-                label: '三级 2-2-1'
-                }]
-            }]
-            }, {
-            label: '一级 3',
-            children: [{
-                label: '二级 3-1',
-                children: [{
-                label: '三级 3-1-1'
-                }]
-            }, {
-                label: '二级 3-2',
-                children: [{
-                label: '三级 3-2-1'
-                }]
-            }]
-            }]
+            const current_topic = computed(() => {
+                return (store.state.Demos[demo_name_to_module_name_dict[props.demo_name]] as any).current_topic as string
+            })
 
             // methods -------------------------------------------------------------------------------------------------
             function onNodeClick(node_data: Topic, node: any, node_ins: any)
@@ -86,7 +62,7 @@
 
             // return --------------------------------------------------------------------------------------------------
             return {
-                demo_data,
+                current_topic,
                 onNodeClick,
             }
         },
@@ -104,33 +80,49 @@
 .indexed-layout>.sidebar .topic-tree
     padding 8px
 
-    .title
+    >.title
         margin-bottom 12px
         color $black40
         font-size 16px
 
-    .tree
-        background-color transparent
+    >.content
+        >.tree
+            background-color transparent
 
-        .el-tree-node__content
-            height 32px
-            cursor default
+            .el-tree-node__expand-icon
+                padding 8px
+                font-size 16px
+                cursor default
 
-        .el-tree-node__expand-icon
-            font-size 16px
+                &:not(.is-leaf)
+                    &:hover
+                        background-color $primary20
 
-        .el-tree-node__content
-            &:hover
-                background-color $primary10
+                    &:active
+                        background-color $primary30
 
-                .el-tree-node__expand-icon:not(.is-leaf)
-                    color $primary50
+            .el-tree-node__content
+                height 32px
+                cursor default
 
-            &:active
-                background-color $primary20
+                &:hover
+                    background-color $primary10
 
-                .el-tree-node__expand-icon:not(.is-leaf)
-                    color $primary60
+                    .el-tree-node__expand-icon:not(.is-leaf)
+                        color $primary50
+
+                &:active
+                    background-color $primary20
+
+                    .el-tree-node__expand-icon:not(.is-leaf)
+                        color $primary60
+
+                span.title
+                    // color $black60
+                    margin-left 4px
+
+                    &.o-current
+                        color $primary
 
 .
     // 

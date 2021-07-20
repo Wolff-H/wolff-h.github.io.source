@@ -8,6 +8,7 @@
 <script lang="ts">
     import { defineComponent, onMounted } from "vue"
     import { integration } from "./core";
+    import { demo_module_name_to_name_dict, demo_name_to_module_name_dict } from "./core/logics/extensions/demos"
 
     export default defineComponent({
         name: 'app',
@@ -23,6 +24,7 @@
             // life cycles ---------------------------------------------------------------------------------------------
             onMounted(() => {
                 console.log(integration);
+                console.log(demo_name_to_module_name_dict, demo_module_name_to_name_dict);
                 
             })
             // return --------------------------------------------------------------------------------------------------
