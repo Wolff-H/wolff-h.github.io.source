@@ -1,6 +1,6 @@
 <template lang="pug">.
-    .topic(data-topic="1-1")
-        |主题 1-1
+    .topic(data-topic="3")
+        |主题 3
 </template>
 
 
@@ -9,7 +9,7 @@
     import { defineComponent } from "vue"
 
     export default defineComponent({
-        name: 'topic-1-1',
+        name: 'topic-1',
         components:
         {
             

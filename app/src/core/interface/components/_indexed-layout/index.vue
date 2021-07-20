@@ -13,6 +13,7 @@
                     slot(name="links")
                 topic-tree(
                     :topic_tree_data="topic_tree_data"
+                    :demo_name="demo_name"
                 )
             .resizer(
                 ref="ref_resizer"
@@ -45,6 +46,7 @@
 
     import Links from "./links.vue"
     import TopicTree from "./topic-tree.vue"
+    import { DemoName } from "@/core/types/extensions/demos"
 
     export default defineComponent({
         name: 'indexed-layout',
@@ -71,6 +73,11 @@
             {
                 type: Object as () => any,
                 default: null,
+            },
+            "demo_name":
+            {
+                type: String as () => DemoName,
+                default: '',
             },
         },
         setup()

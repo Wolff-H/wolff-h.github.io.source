@@ -2,6 +2,7 @@
     indexed-layout(
         :links_config="links_config"
         :topic_tree_data="topic_tree_data"
+        :demo_name="'drag-scroll'"
     )
         |view-default: drag-scroll
 </template>
