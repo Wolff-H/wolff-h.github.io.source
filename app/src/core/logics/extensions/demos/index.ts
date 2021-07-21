@@ -1,3 +1,4 @@
+import KVTuplesToObject from "@/common/generics/KVTuplesToObject"
 import UnionToTuple from "@/common/generics/UnionToTuple"
 import { integration } from "@/core"
 import router from "@/core/router"
@@ -13,11 +14,11 @@ const demo_module_names = Object.values(demos).map(info => info.meta.module_name
 
 const demo_name_to_module_name_dict = Object.fromEntries(Object.values(demos).map(info => [
     info.meta.name, info.meta.module_name
-]))
+])) as KVTuplesToObject<typeof demo_names, typeof demo_module_names>    // Don't do typing like this, it's VERY unsafe.
 
 const demo_module_name_to_name_dict = Object.fromEntries(Object.values(demos).map(info => [
     info.meta.module_name, info.meta.name
-]))
+])) as KVTuplesToObject<typeof demo_module_names, typeof demo_names>
 
 function toDemo(demo_name: DemoName)
 {
