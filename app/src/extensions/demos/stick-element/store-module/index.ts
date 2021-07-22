@@ -9,7 +9,7 @@ const modules =
 
 const state: _S =
 {
-    a: 'aa'
+    current_topic: '',
 }
 
 const getters =
@@ -19,7 +19,11 @@ const getters =
 
 const mutations =
 {
-
+    setCurrentTopic(state: _S, payload: {
+        current_topic: string
+    }){
+        state.current_topic = payload.current_topic
+    },
 }
 
 const actions =
@@ -29,7 +33,8 @@ const actions =
 
 interface _S
 {
-    a: 'aa'
+    /** 当前主题code */
+    current_topic: string
 }
 
 const Module =

@@ -11,6 +11,8 @@ import DemosDefault from "@/core/components/view-demos/view-default.vue"
 
 import { integration } from "@/core"
 import routes_DragScroll from "@/extensions/demos/drag-scroll/routes"
+import routes_HandlelyResizable from "@/extensions/demos/handlely-resizable/routes"
+import routes_StickElement from "@/extensions/demos/stick-element/routes"
 
 /**********************************************************************************************************************/
 
@@ -38,6 +40,8 @@ const routes: RouteRecordRaw[] =
                 component: DemosDefault,
             },
             routes_DragScroll,
+            routes_HandlelyResizable,
+            routes_StickElement,
             // integration.extensions.demos["DragScroll"].registration.routes,
             // HandlelyResizable,
             // VueCollapse,

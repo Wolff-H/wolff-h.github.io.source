@@ -14,8 +14,8 @@ const integration =
         {
             DragScroll,
             HandlelyResizable,
-            SmartAlgorithms,
             StickElement,
+            SmartAlgorithms,
             TSPGraphing,
         },
     },
