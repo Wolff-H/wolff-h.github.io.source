@@ -66,7 +66,7 @@
 
 // 基础样式 -------------------------------------------------------------------------------------------------------------
 .demo-box
-    width 1000px
+    min-width 400px
     margin 16px 0px 48px 0px
     border 1px solid $black15
     border-radius 4px

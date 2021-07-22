@@ -1,8 +1,8 @@
 <template lang="pug">.
-    indexed-layout(
+    indexed-layout.demo(
         :links_config="links_config"
         :topic_tree_data="topic_tree_data"
-        :demo_name="'drag-scroll'"
+        :demo_name="demo_name"
     )
         |view-default: drag-scroll
 </template>
@@ -24,6 +24,9 @@
         setup()
         {
             // data ----------------------------------------------------------------------------------------------------
+            // constants -----------------------------------------------------------------------------------------------
+            const demo_name = 'drag-scroll'
+
             // 0 //
             const links_config =
             {
@@ -34,6 +37,7 @@
 
             // return --------------------------------------------------------------------------------------------------
             return {
+                demo_name,
                 links_config,
                 topic_tree_data,
             }

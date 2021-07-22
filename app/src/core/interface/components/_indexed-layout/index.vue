@@ -1,5 +1,7 @@
 <template lang="pug">.
-    .indexed-layout
+    .indexed-layout(
+        :data-demo="demo_name"
+    )
         .sidebar(
             :class="x_class"
             ref="ref_sidebar"
@@ -219,6 +221,46 @@
 
     >.content
         flex-grow 1
+        overflow auto
+        display flex
+        flex-direction column
+
+        >.topic
+            padding 12px 24px
+
+        *
+            color $black60
+        
+        h1
+            margin 16px 0px
+            font-weight normal
+            font-size 32px
+            color $black80
+
+        h2
+            margin 12px 0px
+            font-weight normal
+            font-size 28px
+
+        h3
+            margin 8px 0px
+            font-weight normal
+            font-size 22px
+
+        h4
+            margin 4px 0px
+            font-weight normal
+            font-size 20px
+
+        h5
+            margin 2px 0px
+            font-weight normal
+            font-size 16px
+
+        h6
+            margin 0px
+            font-weight normal
+            font-size 14px
 
 .
     // 
