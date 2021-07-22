@@ -2,8 +2,20 @@
     .topic-tree
         .title
             |Topics
+            .options
+                icon-expand-down-one.icon.expand-all(
+                    size="16px"
+                    title="expand-all"
+                    @click="expandAll()"
+                )
+                icon-fold-up-one.icon.fold-all(
+                    size="16px"
+                    title="fold-all"
+                    @click="foldAll()"
+                )
         .content
             el-tree.tree(
+                ref="ref_tree"
                 :data="topic_tree_data"
                 node-key="code_full"
                 @node-click="onNodeClick"
@@ -23,14 +35,16 @@
     import router from "@/core/router"
     import store from "@/core/store"
     import { DemoName } from "@/core/types/extensions/demos"
-    import { computed, defineComponent } from "vue"
+    import { computed, defineComponent, ref } from "vue"
     import { Topic, TopicTreeData } from "../../types/indexed-layout/topic-tree"
+    import { ExpandDownOne as IconExpandDownOne, FoldUpOne as IconFoldUpOne } from "@icon-park/vue-next"
 
     export default defineComponent({
         name: 'topic-tree',
         components:
         {
-            
+            [IconExpandDownOne.name]: IconExpandDownOne,
+            [IconFoldUpOne.name]: IconFoldUpOne,
         },
         props:
         {
@@ -53,6 +67,9 @@
                 return (store.state.Demos[demo_name_to_module_name_dict[props.demo_name]] as any).current_topic as string
             })
 
+            // component refs ------------------------------------------------------------------------------------------
+            const ref_tree = ref() as { value: any }
+
             // methods -------------------------------------------------------------------------------------------------
             function onNodeClick(node_data: Topic, node: any, node_ins: any)
             {
@@ -60,10 +77,31 @@
                 router.push({ path: `/demos/${props.demo_name}/${node_data.code_full}` })
             }
 
+            function expandAll()
+            {
+                const nodes = ref_tree.value.store.nodesMap
+                for(let key in nodes)
+                {
+                    nodes[key].expanded = true
+                }
+            }
+
+            function foldAll()
+            {
+                const nodes = ref_tree.value.store.nodesMap
+                for(let key in nodes)
+                {
+                    nodes[key].expanded = false
+                }
+            }
+
             // return --------------------------------------------------------------------------------------------------
             return {
                 current_topic,
+                ref_tree,
                 onNodeClick,
+                expandAll,
+                foldAll,
             }
         },
     })
@@ -81,9 +119,26 @@
     padding 8px
 
     >.title
+        display flex
+        position relative
         margin-bottom 12px
+        align-items center
         color $black40
         font-size 16px
+
+        >.options
+            position absolute
+            right 0px
+
+            >.icon
+                padding 2px
+                cursor pointer
+
+                &:hover
+                    color $black60
+
+                &:active
+                    color black
 
     >.content
         >.tree
