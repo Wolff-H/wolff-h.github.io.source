@@ -13,6 +13,7 @@ import { integration } from "@/core"
 import routes_DragScroll from "@/extensions/demos/drag-scroll/routes"
 import routes_HandlelyResizable from "@/extensions/demos/handlely-resizable/routes"
 import routes_StickElement from "@/extensions/demos/stick-element/routes"
+import routes_TSPGraphing from "@/extensions/demos/tsp-graphing/routes"
 
 /**********************************************************************************************************************/
 
@@ -42,6 +43,7 @@ const routes: RouteRecordRaw[] =
             routes_DragScroll,
             routes_HandlelyResizable,
             routes_StickElement,
+            routes_TSPGraphing
             // integration.extensions.demos["DragScroll"].registration.routes,
             // HandlelyResizable,
             // VueCollapse,

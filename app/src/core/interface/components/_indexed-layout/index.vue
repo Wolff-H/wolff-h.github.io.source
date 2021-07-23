@@ -220,47 +220,54 @@
                 cursor pointer
 
     >.content
-        flex-grow 1
-        overflow auto
         display flex
+        flex-grow 1
         flex-direction column
+        overflow auto
 
         >.topic
-            padding 12px 24px
+            padding 12px 32px
 
-        *
-            color $black60
-        
+        // *
+        // color $black60
         h1
             margin 16px 0px
+            color $black80
             font-weight normal
             font-size 32px
-            color $black80
 
         h2
             margin 12px 0px
+            color $black60
             font-weight normal
             font-size 28px
 
         h3
             margin 8px 0px
+            color $black60
             font-weight normal
             font-size 22px
 
         h4
             margin 4px 0px
+            color $black60
             font-weight normal
             font-size 20px
 
         h5
             margin 2px 0px
+            color $black60
             font-weight normal
             font-size 16px
 
         h6
             margin 0px
+            color $black60
             font-weight normal
             font-size 14px
+
+        p
+            color $black60
 
 .
     // 

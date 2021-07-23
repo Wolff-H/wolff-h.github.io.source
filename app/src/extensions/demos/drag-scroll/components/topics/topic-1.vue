@@ -19,6 +19,13 @@
                         draggable="false"
                         ref="ref_draggable"
                     )
+            template(#code="")
+                highlighted-code(code_language="html")
+                    |{{   CodeSnippets.template   }}
+                highlighted-code(code_language="typescript")
+                    |{{   CodeSnippets.script   }}
+                highlighted-code(code_language="stylus")
+                    |{{   CodeSnippets.style   }}
 </template>
 
 
@@ -27,6 +34,8 @@
     import { defineComponent, nextTick, onMounted, ref } from "vue"
 
     import DemoBox from "@/core/interface/components/_demo-box/index.vue"
+    import CodeSnippets from "@/extensions/demos/drag-scroll/logics/topics/code-snippets/topic-1"
+    import HighlightedCode from "@/core/interface/components/_highlighted-code/index.vue"
 
     import dragScroll from "@/plugins/drag-scroll"
 
@@ -35,6 +44,7 @@
         components:
         {
             [DemoBox.name]: DemoBox,
+            [HighlightedCode.name]: HighlightedCode,
         },
         setup()
         {
@@ -57,6 +67,7 @@
             return{
                 ref_draggable,
                 ref_scrollable,
+                CodeSnippets,
             }
         },
     })
