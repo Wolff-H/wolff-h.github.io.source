@@ -55,8 +55,31 @@ body
 
 // 基础样式 -------------------------------------------------------------------------------------------------------------
 #app
-    // 
+    // // 全局滚动条样式 //
+    // ::-webkit-scrollbar
+    //     width 8px
+    //     height 8px
+    //     background-color $black05
 
+    //     // &:hover, &:active
+    //     //     background-color $primary10 //$black05
+
+    // ::-webkit-scrollbar-thumb
+    //     border 1px solid $black05
+    //     background-color $black25
+
+    //     &:hover
+    //         background-color $black40
+    //         border none
+
+    //     &:active
+    //         background-color $black50
+    //         border none
+    
+    // // 全局滚动条样式 - 适配Firefox //
+    // *
+    //     scrollbar-width thin
+    //     scrollbar-color $black25 $black05
 .
     // 
 </style>

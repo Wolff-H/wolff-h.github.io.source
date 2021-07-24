@@ -2,8 +2,6 @@
     .topic(data-topic="1")
         h1
             |Basic Usage
-        h3
-            |Basic Usage
         p
             |The most common, basic usage of drag-scroll.
             br

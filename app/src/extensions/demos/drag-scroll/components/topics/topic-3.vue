@@ -9,7 +9,7 @@
     import { defineComponent } from "vue"
 
     export default defineComponent({
-        name: 'topic-1',
+        name: 'topic-3',
         components:
         {
             

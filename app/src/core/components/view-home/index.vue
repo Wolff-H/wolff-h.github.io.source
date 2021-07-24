@@ -9,6 +9,10 @@
                         |wolff-h.github.io
                     .introduction
                         |A place for demonstrating some of my works
+                        br
+                        |The source code of this site can be inspected in 
+                        a
+                            |Site Source
                 .navigation
                     .menu
                         .left
@@ -131,6 +135,7 @@
                     right 64px
                     bottom 48px
                     color white
+                    text-align right
 
             >.navigation
                 display flex

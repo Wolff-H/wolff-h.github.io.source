@@ -226,7 +226,7 @@
         overflow auto
 
         >.topic
-            padding 12px 32px
+            padding 12px 36px
 
         // *
         // color $black60
@@ -243,7 +243,7 @@
             font-size 28px
 
         h3
-            margin 8px 0px
+            margin 48px 0px 8px 0px
             color $black60
             font-weight normal
             font-size 22px

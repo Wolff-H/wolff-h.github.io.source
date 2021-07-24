@@ -67,7 +67,7 @@
 // 基础样式 -------------------------------------------------------------------------------------------------------------
 .demo-box
     min-width 400px
-    margin 16px 0px 48px 0px
+    margin 16px 0px
     border 1px solid $black15
     border-radius 4px
     &:hover
