@@ -19,22 +19,20 @@
                     )
             template(#code="")
                 highlighted-code(code_language="html")
-                    |{{   CodeSnippets.template   }}
+                    |{{   CodeSnippets['basic_usage'].template   }}
                 highlighted-code(code_language="typescript")
-                    |{{   CodeSnippets.script   }}
+                    |{{   CodeSnippets['basic_usage'].script   }}
                 highlighted-code(code_language="stylus")
-                    |{{   CodeSnippets.style   }}
+                    |{{   CodeSnippets['basic_usage'].style   }}
 </template>
 
 
 
 <script lang="ts">
     import { defineComponent, nextTick, onMounted, ref } from "vue"
-
     import DemoBox from "@/core/interface/components/_demo-box/index.vue"
     import CodeSnippets from "@/extensions/demos/drag-scroll/logics/topics/code-snippets/topic-1"
     import HighlightedCode from "@/core/interface/components/_highlighted-code/index.vue"
-
     import dragScroll from "@/plugins/drag-scroll"
 
     export default defineComponent({

@@ -40,16 +40,17 @@
 
 <script lang="ts">
     import { defineComponent, nextTick, onMounted, ref } from "vue"
-
     import DemoBox from "@/core/interface/components/_demo-box/index.vue"
-
     import dragScroll from "@/plugins/drag-scroll"
+    import HighlightedCode from "@/core/interface/components/_highlighted-code/index.vue"
+    import CodeSnippets from "@/extensions/demos/drag-scroll/logics/topics/code-snippets/topic-3-1"
 
     export default defineComponent({
         name: 'topic-3-1',
         components:
         {
             [DemoBox.name]: DemoBox,
+            [HighlightedCode.name]: HighlightedCode,
         },
         setup()
         {
@@ -79,6 +80,7 @@
                 ref_scrollable,
                 ref_draggable_1,
                 ref_scrollable_1,
+                CodeSnippets,
             }
         },
     })

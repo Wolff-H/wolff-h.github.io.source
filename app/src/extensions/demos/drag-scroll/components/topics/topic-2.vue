@@ -19,24 +19,30 @@
                 .touchpad(
                     ref="ref_draggable"
                 )
-            
-
+            template(#code="")
+                highlighted-code(code_language="html")
+                    |{{   CodeSnippets['seperate_element_and_container'].template   }}
+                highlighted-code(code_language="typescript")
+                    |{{   CodeSnippets['seperate_element_and_container'].script   }}
+                highlighted-code(code_language="stylus")
+                    |{{   CodeSnippets['seperate_element_and_container'].style   }}
 </template>
 
 
 
 <script lang="ts">
     import { defineComponent, nextTick, onMounted, ref } from "vue"
-
     import DemoBox from "@/core/interface/components/_demo-box/index.vue"
-
     import dragScroll from "@/plugins/drag-scroll"
+    import HighlightedCode from "@/core/interface/components/_highlighted-code/index.vue"
+    import CodeSnippets from "@/extensions/demos/drag-scroll/logics/topics/code-snippets/topic-2"
 
     export default defineComponent({
         name: 'topic-2',
         components:
         {
             [DemoBox.name]: DemoBox,
+            [HighlightedCode.name]: HighlightedCode,
         },
         setup()
         {
@@ -57,9 +63,10 @@
             })
 
             // return --------------------------------------------------------------------------------------------------
-            return{
+            return {
                 ref_draggable,
                 ref_scrollable,
+                CodeSnippets,
             }
         },
     })

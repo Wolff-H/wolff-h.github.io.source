@@ -69,6 +69,8 @@
 
     import dragScroll from "@/plugins/drag-scroll"
     import stickElement from "@/plugins/stick-element"
+    import HighlightedCode from "@/core/interface/components/_highlighted-code/index.vue"
+    import CodeSnippets from "@/extensions/demos/drag-scroll/logics/topics/code-snippets/topic-6"
 
     import dataset from "@/extensions/demos/drag-scroll/logics/topics/example_dataset"
 
@@ -77,6 +79,7 @@
         components:
         {
             [DemoBox.name]: DemoBox,
+            [HighlightedCode.name]: HighlightedCode,
         },
         setup()
         {
@@ -109,6 +112,7 @@
                 ref_col1_drag,
                 ref_col1_head,
                 ref_thead,
+                CodeSnippets,
             }
         },
     })

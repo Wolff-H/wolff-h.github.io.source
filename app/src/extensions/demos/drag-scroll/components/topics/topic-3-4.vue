@@ -25,12 +25,15 @@
     import DemoBox from "@/core/interface/components/_demo-box/index.vue"
 
     import dragScroll from "@/plugins/drag-scroll"
+    import HighlightedCode from "@/core/interface/components/_highlighted-code/index.vue"
+    import CodeSnippets from "@/extensions/demos/drag-scroll/logics/topics/code-snippets/topic-3-4"
 
     export default defineComponent({
         name: 'topic-3-4',
         components:
         {
             [DemoBox.name]: DemoBox,
+            [HighlightedCode.name]: HighlightedCode,
         },
         setup()
         {
@@ -53,6 +56,7 @@
             return{
                 ref_draggable,
                 ref_scrollable,
+                CodeSnippets,
             }
         },
     })

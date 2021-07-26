@@ -1,4 +1,4 @@
-const basic_usage =
+const seperate_element_and_container =
 {
 template:
 `\
@@ -10,17 +10,15 @@ template:
             src="@/assets/images/landscape-coast.jpg"
             alt="landscape-coast"
             draggable="false"
-            ref="ref_draggable"
         )
+    .touchpad(
+        ref="ref_draggable"
+    )
 </template>
 `,
 script:
 `
 <script lang="ts">
-    import { defineComponent, nextTick, onMounted, ref } from "vue"
-
-    import dragScroll from "@/plugins/drag-scroll"
-
     export default defineComponent({
         setup()
         {
@@ -33,7 +31,7 @@ script:
                 })
             })
 
-            return{
+            return {
                 ref_draggable,
                 ref_scrollable,
             }
@@ -46,14 +44,20 @@ style:
 <style lang="stylus">
     .container
         display inline-block
-        width 800px
-        height 600px
+        width 640px
+        height 480px
         overflow auto
+
+    .touchpad
+        margin-top 24px
+        width 256px
+        height 192px
+        background-color $black20
 </style>
 `,
 }
 
 export default
 {
-    basic_usage,
+    seperate_element_and_container,
 }
