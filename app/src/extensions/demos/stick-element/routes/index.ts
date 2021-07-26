@@ -7,6 +7,7 @@ import Topic_1 from "@/extensions/demos/stick-element/components/topics/topic-1.
 import Topic_2 from "@/extensions/demos/stick-element/components/topics/topic-2.vue"
 import Topic_3 from "@/extensions/demos/stick-element/components/topics/topic-3.vue"
 import Topic_4 from "@/extensions/demos/stick-element/components/topics/topic-4.vue"
+import Topic_5 from "@/extensions/demos/stick-element/components/topics/topic-5.vue"
 import { setCurrentTopic } from "@/core/interface/logics/_indexed-layout"
 
 const routes: RouteRecordRaw =
@@ -53,6 +54,13 @@ const routes: RouteRecordRaw =
             component: Topic_4,
             beforeEnter: () => {
                 setCurrentTopic('stick-element', '4')
+            }
+        },
+        {
+            path: '5',
+            component: Topic_5,
+            beforeEnter: () => {
+                setCurrentTopic('stick-element', '5')
             }
         },
     ],
