@@ -1,6 +1,8 @@
 <template lang="pug">.
     .topic(data-topic="0")
         |主题 0
+        p
+            |一定要指出的，本工具库的好处有：内存安全（用了工具自身运行时检查清除和weakmap自动GC）
 </template>
 
 

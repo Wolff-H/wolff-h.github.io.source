@@ -82,8 +82,8 @@
 #demos .demo[data-demo='drag-scroll'] .topic[data-topic='1']
     .container
         display inline-block
-        width 800px
-        height 600px
+        width 640px
+        height 480px
         overflow auto
 
 .

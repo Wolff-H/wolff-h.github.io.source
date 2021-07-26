@@ -76,7 +76,12 @@ const topic_tree_data: TopicTreeData =
     {
         code: '5',
         code_full: '5',
-        label: 'Example: A dragscrollable and sticky table',
+        label: 'Avoid handles',
+    },
+    {
+        code: '6',
+        code_full: '6',
+        label: 'Application: A dragscrollable and sticky table',
     },
 ]
 

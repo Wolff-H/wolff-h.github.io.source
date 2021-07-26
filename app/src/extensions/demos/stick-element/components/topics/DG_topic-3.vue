@@ -1,24 +1,23 @@
 <template lang="pug">.
-    .topic(data-topic="1")
+    .topic(data-topic="3")
         h1
-            |Basic usage
+            |Capture effect
         p
-            |Make elements sticky just like native sticky.
+            |Element can be "captured" in container where it's originally outside the viewport.
         demo-box
             template(#="")
                 .container(
                     ref="ref_container"
                 )
+                    
+                    .padding-y
+                        |· · · · · · 1 · · · · · · 2 · · · · · · 3 · · · · · · 4 · · · · · · 5 · · · · · · 6 · · · · · · 7 · · · · · · 8 · · · · · · 9 · · · · · · 10 · · · · · · 11 · · · · · · 12 · · · · · · 13 · · · · · · 14 · · · · · · 15 · · · · · · 
+                    .padding-x
+                        |· · · · · · 1 · · · · · · 2 · · · · · · 3 · · · · · · 4 · · · · · · 5 · · · · · · 6 · · · · · · 7 · · · · · · 8 · · · · · · 9 · · · · · · 10 · · · · · · 11 · · · · · · 12 · · · · · · 13 · · · · · · 14 · · · · · · 15 · · · · · · 
                     .sticker(
                         ref="ref_sticker"
                     )
-                        |sticker1
-                    .padding-x
-                        |· · · · · · 1 · · · · · · 2 · · · · · · 3 · · · · · · 4 · · · · · · 5 · · · · · · 6 · · · · · · 7 · · · · · · 8 · · · · · · 9 · · · · · · 10 · · · · · · 11 · · · · · · 12 · · · · · · 13 · · · · · · 14 · · · · · · 15 · · · · · · 
-                    .sticker-1(
-                        ref="ref_sticker_1"
-                    )
-                        |sticker2
+                        |sticker
                     .padding-y
                         |· · · · · · 1 · · · · · · 2 · · · · · · 3 · · · · · · 4 · · · · · · 5 · · · · · · 6 · · · · · · 7 · · · · · · 8 · · · · · · 9 · · · · · · 10 · · · · · · 11 · · · · · · 12 · · · · · · 13 · · · · · · 14 · · · · · · 15 · · · · · · 
 </template>
@@ -46,7 +45,6 @@
             // dom refs //
             const ref_container = ref() as { value: HTMLElement }
             const ref_sticker = ref() as { value: HTMLElement }
-            const ref_sticker_1 = ref() as { value: HTMLElement }
 
             // methods -------------------------------------------------------------------------------------------------
 
@@ -54,7 +52,6 @@
             onMounted(() => {
                 nextTick(() => {
                     stickElement(ref_container.value, ref_sticker.value, { top: 0, left: 0 })
-                    stickElement(ref_container.value, ref_sticker_1.value, { left: 50 })
                 })
             })
 

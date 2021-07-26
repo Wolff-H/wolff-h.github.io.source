@@ -13,6 +13,7 @@ import Topic_3_4 from "@/extensions/demos/drag-scroll/components/topics/topic-3-
 import Topic_3_5 from "@/extensions/demos/drag-scroll/components/topics/topic-3-5.vue"
 import Topic_4 from "@/extensions/demos/drag-scroll/components/topics/topic-4.vue"
 import Topic_5 from "@/extensions/demos/drag-scroll/components/topics/topic-5.vue"
+import Topic_6 from "@/extensions/demos/drag-scroll/components/topics/topic-6.vue"
 import { setCurrentTopic } from "@/core/interface/logics/_indexed-layout"
 
 const routes: RouteRecordRaw =
@@ -103,6 +104,13 @@ const routes: RouteRecordRaw =
             component: Topic_5,
             beforeEnter: () => {
                 setCurrentTopic('drag-scroll', '5')
+            }
+        },
+        {
+            path: '6',
+            component: Topic_6,
+            beforeEnter: () => {
+                setCurrentTopic('drag-scroll', '6')
             }
         },
     ],
