@@ -19,6 +19,13 @@
                         draggable="false"
                         ref="ref_draggable"
                     )
+            template(#code="")
+                highlighted-code(code_language="html")
+                    |{{   CodeSnippets['subtopic_1'].template   }}
+                highlighted-code(code_language="typescript")
+                    |{{   CodeSnippets['subtopic_1'].script   }}
+                highlighted-code(code_language="stylus")
+                    |{{   CodeSnippets['subtopic_1'].style   }}
         h3
             |Lock y-axis
         p
@@ -34,6 +41,13 @@
                         draggable="false"
                         ref="ref_draggable_1"
                     )
+            template(#code="")
+                highlighted-code(code_language="html")
+                    |{{   CodeSnippets['subtopic_2'].template   }}
+                highlighted-code(code_language="typescript")
+                    |{{   CodeSnippets['subtopic_2'].script   }}
+                highlighted-code(code_language="stylus")
+                    |{{   CodeSnippets['subtopic_2'].style   }}
 </template>
 
 

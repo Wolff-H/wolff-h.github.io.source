@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from "vue-router"
-// import store from "@/store"
+import store from "@/core/store"
 
 import Default from "@/extensions/demos/drag-scroll/components/view-default.vue"
 import Topic_0 from "@/extensions/demos/drag-scroll/components/topics/topic-0.vue"
@@ -21,9 +21,7 @@ const routes: RouteRecordRaw =
     path: 'drag-scroll',
     alias: 'home',
     beforeEnter: () => {
-        // store.commit("Demos/optDemo", { demo: 'drag-scroll' })
-        console.log('before enter /drag-scroll');
-        
+        store.dispatch("Demos/optDemo", { demo: 'drag-scroll' })
     },
     component: Default,
     children:

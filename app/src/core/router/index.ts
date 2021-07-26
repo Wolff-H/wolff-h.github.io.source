@@ -31,9 +31,9 @@ const routes: RouteRecordRaw[] =
     {
         path: '/demos',
         component: Demos,
-        // beforeEnter: () => {
-        //     store.commit("Demo/optDemo", { demo: '' })
-        // },
+        beforeEnter: () => {
+            store.dispatch("Demos/optDemo", { demo: '' })
+        },
         children:
         [
             {

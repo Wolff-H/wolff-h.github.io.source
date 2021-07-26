@@ -1,5 +1,6 @@
 import { RouteRecordRaw } from "vue-router"
 
+import store from "@/core/store"
 import Default from "@/extensions/demos/handlely-resizable/components/view-default.vue"
 import Topic_0 from "@/extensions/demos/handlely-resizable/components/topics/topic-0.vue"
 import Topic_1 from "@/extensions/demos/handlely-resizable/components/topics/topic-1.vue"
@@ -13,6 +14,9 @@ const routes: RouteRecordRaw =
     path: 'handlely-resizable',
     alias: 'home',
     component: Default,
+    beforeEnter: () => {
+        store.dispatch("Demos/optDemo", { demo: 'handlely-resizable' })
+    },
     children:
     [
         {

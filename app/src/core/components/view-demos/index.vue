@@ -30,8 +30,8 @@
 
 
 <script lang="ts">
-    import { defineComponent, ref } from "vue"
-    // import store from "@/core/store"
+    import { computed, defineComponent } from "vue"
+    import store from "@/core/store"
 
     import { Home as IconHome } from "@icon-park/vue-next"
 
@@ -49,14 +49,14 @@
         setup()
         {
             // data ----------------------------------------------------------------------------------------------------
-            // 0 //
-            // const opting_demo = computed({
-            //     get()         {   return (store as any).state.Demos.opting_demo   },
-            //     set(v: string){   store.commit("Demos/optDemo", { demo: v } )   },
-            // })
-
-            const opting_demo = ref('')
+            // constants //
             const demo_names = Demos.demo_names
+
+            // 0 //
+            const opting_demo = computed({
+                get(){   return (store as any).state.Demos.opting_demo   },
+                set(v: DemoName|''){   store.dispatch("Demos/optDemo", { demo: v } )   },
+            })
 
             // methods -------------------------------------------------------------------------------------------------
             function toDemo(demo_name: DemoName)
