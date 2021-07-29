@@ -1,34 +1,36 @@
 import plotly from "plotly.js"
 
 // helpers -------------------------------------------------------------------------------------------------------------
+type WaypointMap =
+    [city_id: number, x: number, y: number][]
 
-function parseCoords(map:any)
+function parseCoords(map: WaypointMap)
 {
-    const plotly_coords:number[][] = [ [],[],[] ]
+    const plotly_coords: [ids: number[], xs: number[], ys: number[]] = [ [],[],[] ]
 
     for(const city of map)
     {
-        plotly_coords[0].push(city[0])    //id
-        plotly_coords[1].push(city[1])    //x-axis
-        plotly_coords[2].push(city[2])    //y-axis
+        plotly_coords[0].push(city[0])    // id
+        plotly_coords[1].push(city[1])    // x-axis
+        plotly_coords[2].push(city[2])    // y-axis
     }
 
     return plotly_coords
 }
-// draw ----------------------------------------------------------------------------------------------------------------
 
-function drawPlainMap(source:any, target:any)
+// draw ----------------------------------------------------------------------------------------------------------------
+function drawPlainMap(source: WaypointMap, target: HTMLElement|string)
 {
     const plotly_coords = parseCoords(source)
 
-    const traces:any =
+    const traces: plotly.Data[] =
     [
         {
-            text: plotly_coords[0],
+            type: 'scatter',
+            mode: 'markers',
+            text: plotly_coords[0].toString(),
             x: plotly_coords[1],
             y: plotly_coords[2],
-            mode: 'markers',
-            type: 'scatter',
         },
     ]
 
@@ -42,8 +44,12 @@ function drawPlainMap(source:any, target:any)
     )
 }
 
-function drawExperiment(source:any, generation_limit:number, target_time_cost:any, target_result:any)
-{
+function drawExperiment(
+    source: any,
+    generation_limit: number,
+    target_time_cost: any,
+    target_result: any
+){
     // x 都是测试序数 //
     const xs = []
 
@@ -60,7 +66,7 @@ function drawExperiment(source:any, generation_limit:number, target_time_cost:an
         timecost_ys.push(   source["evolutions"][i][0]["time_cost"]   )
     }
 
-    const plotly_time_cost:any =
+    const plotly_time_cost: any =
     [
         {
             x: xs,
@@ -93,12 +99,18 @@ function drawExperiment(source:any, generation_limit:number, target_time_cost:an
 
     for(let i=0; i<source["evolutions"].length; i++)
     {
-        best_ys.push(   source["evolutions"][i][generation_limit]["best-individual-distance"]   )
-        worst_ys.push(   source["evolutions"][i][generation_limit]["worst-individual-distance"]   )
-        avg_ys.push(   source["evolutions"][i][generation_limit]["average-distance"]   )
+        best_ys.push(
+            source["evolutions"][i][generation_limit]["best-individual-distance"]
+        )
+        worst_ys.push(
+            source["evolutions"][i][generation_limit]["worst-individual-distance"]
+        )
+        avg_ys.push(
+            source["evolutions"][i][generation_limit]["average-distance"]
+        )
     }
 
-    const plotly_result:any =
+    const plotly_result: any =
     [
         {
             x: xs,
@@ -123,16 +135,29 @@ function drawExperiment(source:any, generation_limit:number, target_time_cost:an
         }
     ]
 
-    plotly.newPlot(   target_result, plotly_result, {}, {responsive: true}   )
+    plotly.newPlot(
+        target_result,
+        plotly_result,
+        {},
+        {
+            responsive: true,
+        }
+    )
 }
 
-function drawEvolution(source:any, target:any, generation_limit:number, trial_n: number)
-{
+function drawEvolution(
+    source: any,
+    target: any,
+    generation_limit: number,
+    trial_n: number
+){
     // x 都是世代序数 //
     const xs = []
 
     for(let i=0; i<generation_limit; i++)
-    {   xs.push(i+1)   }
+    {
+        xs.push(i+1)
+    }
 
     // 选中的测试的各世代max、min、avg分布 - - - - - - - - - - - - - - - - - - - - - - - -
     const best_ys = []
@@ -141,9 +166,15 @@ function drawEvolution(source:any, target:any, generation_limit:number, trial_n:
 
     for(let i=1; i<=generation_limit; i++)
     {
-        best_ys.push(   source["evolutions"][trial_n-1][i]["best-individual-distance"]   )
-        worst_ys.push(   source["evolutions"][trial_n-1][i]["worst-individual-distance"]   )
-        avg_ys.push(   source["evolutions"][trial_n-1][i]["average-distance"]   )
+        best_ys.push(
+            source["evolutions"][trial_n-1][i]["best-individual-distance"]
+        )
+        worst_ys.push(
+            source["evolutions"][trial_n-1][i]["worst-individual-distance"]
+        )
+        avg_ys.push(
+            source["evolutions"][trial_n-1][i]["average-distance"]
+        )
     }
 
     const plotly_evolution =
@@ -171,51 +202,81 @@ function drawEvolution(source:any, target:any, generation_limit:number, trial_n:
         }
     ]
 
-    plotly.newPlot(   target, plotly_evolution, {}, {responsive: true}   )
+    plotly.newPlot(
+        target,
+        plotly_evolution,
+        {},
+        {
+            responsive: true
+        }
+    )
 }
 
-function drawGeneration(source:any, target:any, generation_limit:number, trial_n: number, generation_n:number) :any
-{
+function drawGeneration(
+    source: any, 
+    target: any, 
+    generation_limit: number, 
+    trial_n: number, 
+    generation_n: number,
+){
     // x 都是世代序数 //
     const xs = []
 
     for(let i=0; i<generation_limit; i++)
-    {   xs.push(i+1)   }
+    {
+        xs.push(i+1)
+    }
 
     // 选中的世代的所有个体的distance分布 - - - - - - - - - - - - - - - - - - - - - - - -
     const ys = []
 
     for(let i=0; i<generation_limit; i++)
-    {  ys.push(   source["evolutions"][trial_n-1][generation_n]["individual-distances"][i]   )   }
+    {
+        ys.push(source["evolutions"][trial_n-1][generation_n]["individual-distances"][i])
+    }
 
     const plotly_generation =
-        [
-            {
-                x: xs,
-                y: ys,
-                mode: 'lines',
-                fill: 'tonexty',
-                name: 'individual distance',
-            }
-        ]
+    [
+        {
+            x: xs,
+            y: ys,
+            mode: 'lines',
+            fill: 'tonexty',
+            name: 'individual distance',
+        }
+    ]
 
-    plotly.newPlot(   target, plotly_generation, {}, {responsive: true}   )
+    plotly.newPlot(
+        target,
+        plotly_generation,
+        {},
+        {
+            responsive: true
+        }
+    )
 
     // 返回仪表盘数据 //
-    return{
+    return {
         avg: source["evolutions"][trial_n-1][generation_n]["average-distance"],
         best: source["evolutions"][trial_n-1][generation_n]["best-individual-distance"],
         worst: source["evolutions"][trial_n-1][generation_n]["worst-individual-distance"],
     }
 }
 
-function drawIndividual(source:any, target:any, generation_limit:number, trial_n:number, generation_n:number, individual_n:number, plain_map:number[][]) :string
-{
+function drawIndividual(
+    source: any, 
+    target: any, 
+    generation_limit: number, 
+    trial_n: number, 
+    generation_n: number, 
+    individual_n: number, 
+    plain_map: number[][]
+){
     let ids = []
     const xs = []
     const ys = []
     
-    if( individual_n == 1 )    //best
+    if(individual_n == 1)    //best
     {
         ids = source["evolutions"][trial_n-1][generation_n]["best-individual-sequence"]
         ids.push(ids[0])
@@ -226,7 +287,7 @@ function drawIndividual(source:any, target:any, generation_limit:number, trial_n
             ys.push( plain_map[2][ ids[i]-1 ] )
         }
     }
-    else if( individual_n == 2 )    //worst
+    else if(individual_n == 2)    //worst
     {
         ids = source["evolutions"][trial_n-1][generation_n]["worst-individual-sequence"]
         ids.push(ids[0])
@@ -249,7 +310,14 @@ function drawIndividual(source:any, target:any, generation_limit:number, trial_n
         }
     ]
 
-    plotly.newPlot(   target, individual_plotly, {}, {responsive: true}   )
+    plotly.newPlot(
+        target,
+        individual_plotly,
+        {},
+        {
+            responsive: true,
+        }
+    )
 
     // 返回路径序列 //
     // $(".dashboard textarea").text( ids.toString() );

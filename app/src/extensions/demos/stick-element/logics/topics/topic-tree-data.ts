@@ -30,7 +30,7 @@ const topic_tree_data: TopicTreeData =
     {
         code: '5',
         code_full: '5',
-        label: '[TODO][topic 5] override',
+        label: '[TODO][topic 5] Override',
     },
 ]
 

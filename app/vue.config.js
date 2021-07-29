@@ -24,13 +24,20 @@ module.exports =
         },
     },
 
-    chainWebpack: config => {
+    chainWebpack: (config) => {
         // pug loader //
         config.module
         .rule('pug')
-        .test(/\.pug$/)
-        .use('pug-html-loader')
-        .loader('pug-html-loader')
-        .end()
+            .test(/\.pug$/)
+            .use('pug-html-loader')
+                .loader('pug-html-loader')
+                .end()
+        // raw loader //
+        config.module
+        .rule('raw')
+            .test(/\.md$/)
+            .use('raw-loader')
+                .loader('raw-loader')
+                .end()
     },
 }

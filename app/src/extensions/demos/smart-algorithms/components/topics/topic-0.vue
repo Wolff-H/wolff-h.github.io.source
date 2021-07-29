@@ -1,6 +1,8 @@
 <template lang="pug">.
-    .topic(data-topic="4")
-        |To be posted later...
+    .topic(data-topic="0")
+        |主题 0
+        p
+            |测试markdown-it
 </template>
 
 
@@ -9,7 +11,7 @@
     import { defineComponent } from "vue"
 
     export default defineComponent({
-        name: 'topic-4',
+        name: 'topic-0',
         components:
         {
             

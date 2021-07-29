@@ -19,9 +19,9 @@
 
 
 <script lang="ts">
-    import { defineComponent, nextTick, onMounted } from "vue"
+    import { defineComponent, nextTick, onMounted, ref } from "vue"
     import DemoBox from "@/core/interface/components/_demo-box/index.vue"
-    // import handlelyResizable from "@/plugins/handlely-resizable"
+    import handlelyResizable from "@/plugins/handlely-resizable"
     import HighlightedCode from "@/core/interface/components/_highlighted-code/index.vue"
     import CodeSnippets from "@/extensions/demos/handlely-resizable/logics/topics/code-snippets/topic-n"
 
@@ -50,7 +50,7 @@
 
             // return --------------------------------------------------------------------------------------------------
             return {
-                CodeSnippets,
+
             }
         },
     })
