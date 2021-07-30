@@ -30,6 +30,11 @@
                             :key="n"
                         )
                             |{{   n   }}
+            template(#code="")
+                highlighted-code(code_language="html")
+                    |{{   CodeSnippets['subtopic_1'].template   }}
+                highlighted-code(code_language="typescript")
+                    |{{   CodeSnippets['subtopic_1'].script   }}
         h3
             |Less sensitive
         p
@@ -56,6 +61,11 @@
                             :key="n"
                         )
                             |{{   n   }}
+            template(#code="")
+                highlighted-code(code_language="html")
+                    |{{   CodeSnippets['subtopic_2'].template   }}
+                highlighted-code(code_language="typescript")
+                    |{{   CodeSnippets['subtopic_2'].script   }}
         h3
             |More sensitive
         p
@@ -82,6 +92,11 @@
                             :key="n"
                         )
                             |{{   n   }}
+            template(#code="")
+                highlighted-code(code_language="html")
+                    |{{   CodeSnippets['subtopic_3'].template   }}
+                highlighted-code(code_language="typescript")
+                    |{{   CodeSnippets['subtopic_3'].script   }}
         h3
             |Scaled sensitive
         p
@@ -108,6 +123,11 @@
                             :key="n"
                         )
                             |{{   n   }}
+            template(#code="")
+                highlighted-code(code_language="html")
+                    |{{   CodeSnippets['subtopic_4'].template   }}
+                highlighted-code(code_language="typescript")
+                    |{{   CodeSnippets['subtopic_4'].script   }}
 </template>
 
 
