@@ -21,6 +21,11 @@
                         |sticker2
                     .padding-y
                         |· · · · · · 1 · · · · · · 2 · · · · · · 3 · · · · · · 4 · · · · · · 5 · · · · · · 6 · · · · · · 7 · · · · · · 8 · · · · · · 9 · · · · · · 10 · · · · · · 11 · · · · · · 12 · · · · · · 13 · · · · · · 14 · · · · · · 15 · · · · · · 
+            template(#code="")
+                highlighted-code(code_language="html")
+                    |{{   CodeSnippets['subtopic_1'].template   }}
+                highlighted-code(code_language="typescript")
+                    |{{   CodeSnippets['subtopic_1'].script   }}
 </template>
 
 
@@ -31,12 +36,15 @@
     import DemoBox from "@/core/interface/components/_demo-box/index.vue"
 
     import stickElement from "@/plugins/stick-element"
+    import HighlightedCode from "@/core/interface/components/_highlighted-code/index.vue"
+    import CodeSnippets from "@/extensions/demos/drag-scroll/logics/topics/code-snippets/topic-5"
 
     export default defineComponent({
         name: 'topic-1',
         components:
         {
             [DemoBox.name]: DemoBox,
+            [HighlightedCode.name]: HighlightedCode,
         },
         setup()
         {
@@ -63,6 +71,7 @@
                 ref_container,
                 ref_sticker,
                 ref_sticker_1,
+                CodeSnippets,
             }
         },
     })
