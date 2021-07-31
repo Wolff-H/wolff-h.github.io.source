@@ -25,7 +25,7 @@ const topic_tree_data: TopicTreeData =
     {
         code: '4',
         code_full: '4',
-        label: 'Disable/Remove resizable effect',
+        label: 'Disable, Destroy',
     },
 ]
 

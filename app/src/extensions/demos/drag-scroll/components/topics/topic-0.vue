@@ -2,7 +2,7 @@
     .topic(data-topic="0")
         |主题 0
         p
-            |一定要指出的，本工具库的好处有：内存安全（用了工具自身运行时检查清除和weakmap自动GC）
+            |好处：1、内存安全（运行时检查清除失效DOM和weakmap自动GC）；2、简单易用，api设计的很干净。
 </template>
 
 
