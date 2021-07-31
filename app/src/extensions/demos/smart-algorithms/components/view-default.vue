@@ -1,7 +1,7 @@
 <template lang="pug">.
     indexed-layout.demo(
         :links_config="links_config"
-        :topic_tree_data="/*topic_tree_data*/[]"
+        :topic_tree_data="topic_tree_data"
         :demo_name="demo_name"
     )
         |view-default: smart-algorithms
@@ -13,7 +13,7 @@
     import { defineComponent } from "vue"
     
     import IndexedLayout from "@/core/interface/components/_indexed-layout/index.vue"
-    // import topic_tree_data from "@/extensions/demos/smart-algorithms/logics/topics/topic-tree-data"
+    import topic_tree_data from "@/extensions/demos/smart-algorithms/logics/topics/topic-tree-data"
 
     export default defineComponent({
         name: 'view-default',
@@ -39,7 +39,7 @@
             return {
                 demo_name,
                 links_config,
-                // topic_tree_data,
+                topic_tree_data,
             }
         },
     })

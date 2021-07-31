@@ -1,6 +1,6 @@
 <template lang="pug">.
-    .topic(data-topic="0")
-        |主题 0
+    .topic(data-topic="3")
+        |主题 3
 </template>
 
 
