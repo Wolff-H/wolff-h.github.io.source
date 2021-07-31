@@ -12,10 +12,12 @@
                 icon-github-one.entry.report(
                     title="experiment report"
                     size="18"
+                    @click="toReport()"
                 )
                 icon-table-report.entry.github(
                     title="github"
                     size="18"
+                    @click="toGithub()"
                 )
         .body
             el-tabs.big-tabs(
@@ -30,7 +32,7 @@
                             |Time Cost
                         .description
                             |Total time cost of running each trial.
-                        .figure(
+                        .figure.time-cost(
                             ref="ref_figure_time_cost"
                         )
                     section.result
@@ -38,7 +40,7 @@
                             |Result
                         .description
                             |Result of each generation's maximum, minimum, average distance.
-                        .figure(
+                        .figure.result(
                             ref="ref_figure_result"
                         )
                 el-tab-pane.pane.evolution(
@@ -47,10 +49,10 @@
                 )
                     section.xxxx
                         .title
-                            |Distance Trend
+                            |Evolution
                         .description
                             |Trend of each generation's maximum, minimum, average distance.
-                        .figure(
+                        .figure.evolution(
                             ref="ref_figure_evolution"
                         )
                 el-tab-pane.pane.generation(
@@ -59,10 +61,10 @@
                 )
                     section.xxxx
                         .title
-                            |xxxx
+                            |Generation
                         .description
-                            |xxxx
-                        .figure(
+                            |Eventual arrivals of a generation.
+                        .figure.generation(
                             ref="ref_figure_generation"
                         )
                 el-tab-pane.pane.individual(
@@ -71,10 +73,10 @@
                 )
                     section.xxxx
                         .title
-                            |xxxx
+                            |Individual
                         .description
-                            |xxxx
-                        .figure(
+                            |The individual solution (result travel route).
+                        .figure.individual(
                             ref="ref_figure_individual"
                         )
                 el-tab-pane.pane.plain-map(
@@ -83,10 +85,10 @@
                 )
                     section.xxxx
                         .title
-                            |xxxx
+                            |Plain map
                         .description
-                            |xxxx
-                        .figure(
+                            |Plain city map
+                        .figure.plain-map(
                             ref="ref_figure_plain_map"
                         )
             el-select.selector.case(
@@ -101,10 +103,12 @@
                 el-option(
                     :key="1"
                     :value="'Uruguay'"
+                    disabled
                 )
                 el-option(
                     :key="2"
                     :value="'Canada'"
+                    disabled
                 )
             el-select.selector.algorithm(
                 v-model="opting_algorithm"
@@ -114,6 +118,7 @@
                 el-option(
                     :key="0"
                     :value="'basic'"
+                    disabled
                 )
                 el-option(
                     :key="1"
@@ -133,54 +138,54 @@
                     section.trial
                         .title
                             |Trial
-                        el-slider(
+                        el-slider.slider(
                             v-model="trial_n"
                             :min="1"
                             :max="trial_all"
                             show-input
                             @change="drawEvolution();drawGeneration();drawIndividual();"
                         )
-                        .player
-                            |[TODO] (&lt;&lt;) (&lt;) (&gt;) (&gt;&gt;)
+                        //- .player
+                        //-     |[TODO] (&lt;&lt;) (&lt;) (&gt;) (&gt;&gt;)
                     section.generation
                         .title
                             |Generation
-                        el-slider(
+                        el-slider.slider(
                             v-model="generation_n"
                             :min="1"
                             :max="generation_all"
                             show-input
                             @change="drawGeneration();drawIndividual();"
                         )
-                        .player
-                            |[TODO] (&lt;&lt;) (&lt;) (&gt;) (&gt;&gt;)
+                        //- .player
+                        //-     |[TODO] (&lt;&lt;) (&lt;) (&gt;) (&gt;&gt;)
                     section.individual
                         .title
                             |Individual
-                        el-slider(
+                        el-slider.slider(
                             v-model="individual_n"
                             :min="1"
                             :max="2"
                             show-input
                             @change="drawIndividual();"
                         )
-                        .player
-                            |[TODO] (&lt;&lt;) (&lt;) (&gt;) (&gt;&gt;)
+                        //- .player
+                        //-     |[TODO] (&lt;&lt;) (&lt;) (&gt;) (&gt;&gt;)
                 .details
                     .item.generation
                         |Generation
                         .item.average-distance
-                            |Average Distance
+                            |Average Distance:
                             span
-                                |{{   opting_generation_avg_distance   }}
+                                |{{   current_generation_avg_distance   }}
                         .item.shortest-distance
-                            |Shortest Distance
+                            |Shortest Distance:
                             span
-                                |{{   opting_generation_best_distance   }}
+                                |{{   current_generation_best_distance   }}
                         .item.longtest-distance
-                            |Longtest Distance
+                            |Longtest Distance:
                             span
-                                |{{   opting_generation_worst_distance   }}
+                                |{{   current_generation_worst_distance   }}
                     .item.individual
                         |Individual
                         .item.progress
@@ -194,6 +199,8 @@
         el-dialog(
             title="Introduction"
             v-model="if_display_introduction"
+            :style="{ 'max-height': '640px', 'overflow': 'auto' }"
+            custom-class="modal introduction"
         )
             div.markdown(
                 ref="ref_markdown_mount_node"
@@ -315,6 +322,7 @@
                                 if(data === 'no such dataset')
                                 {
                                     ElNotification({
+                                        type: 'error',
                                         title: 'data unavailable',
                                         message: `Server responded: ${'no such dataset'}`,
                                     })
@@ -322,6 +330,7 @@
                                 else
                                 {
                                     ElNotification({
+                                        type: 'success',
                                         title: 'data fetched successfully',
                                         message: `Fetched dataset of ${opting_algorithm.value}_WesternSahara`,
                                     })
@@ -507,6 +516,11 @@
     height 100%
     flex-direction column
 
+    .modal.introduction
+        .el-dialog__body
+            max-height 560px
+            overflow auto
+
     >.header
         display flex
         position relative
@@ -546,28 +560,33 @@
 
             .pane
                 display flex
+                height 100%
                 flex-direction column
                 overflow-x auto
                 overflow-y hidden
-                height 100%
 
                 section
                     display flex
-                    flex-direction column
                     flex-grow 1
+                    flex-direction column
 
                     >.title
+                        padding 8px
                         color $black60
                         font-weight bold
-                        padding 8px
 
                     >.description
-                        color $black60
                         padding 0px 8px
-                    
+                        color $black60
+
                     >.figure
-                        flex-grow 1
-                        background-color $shadow10
+                        // flex-grow 1
+                        // background-color $shadow10
+                        &.plain-map, &.evolution, &.generation, &.individual
+                            min-width 1600px
+                            min-height 560px
+                            width 1600px
+                            height 560px
 
         >.selector.case, >.selector.algorithm
             position absolute
@@ -597,10 +616,53 @@
             right 8px
             width 400px
             height calc(100% - 48px)
-            padding 10px
+            padding 12px
+            overflow auto
             border 1px solid $black10
             border-top none
             background-color $black03
+            color $black60
+
+            .controls
+                section
+                    margin-bottom 8px
+
+                    >.title
+                        font-weight bold
+                        font-size 14px
+
+                    >.slider
+                        margin-left 8px
+
+                section+section
+                    padding-top 16px
+                    // border-top 1px solid $black10
+
+            .details
+                padding-top 12px
+                margin-top 12px
+                border-top 1px solid $black10
+
+                >.item
+                    margin-bottom 16px
+                    font-weight bold
+
+                    >.item
+                        display flex
+                        margin-left 16px
+                        justify-content space-between
+                        font-weight normal
+
+                        &:first-child
+                            margin-top 4px
+
+                    >.route-sequence
+                        width calc(100% - 24px)
+                        margin-top 4px
+                        margin-left 16px
+                        font-weight normal
+                        white-space wrap
+                        word-break break-word
 
 .
     // 
