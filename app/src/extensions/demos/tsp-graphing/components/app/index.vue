@@ -9,15 +9,15 @@
                     size="18"
                     @click="setDisplayIntroduction(true)"
                 )
-                icon-github-one.entry.report(
-                    title="experiment report"
-                    size="18"
-                    @click="toReport()"
-                )
-                icon-table-report.entry.github(
+                icon-github-one.entry.github(
                     title="github"
                     size="18"
                     @click="toGithub()"
+                )
+                icon-table-report.entry.report(
+                    title="experiment report"
+                    size="18"
+                    @click="toReport()"
                 )
         .body
             el-tabs.big-tabs(

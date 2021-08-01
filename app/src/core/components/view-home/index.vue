@@ -10,8 +10,11 @@
                     .introduction
                         |A place for demonstrating some of my works
                         br
-                        |The source code of this site can be inspected in 
-                        a
+                        |The source code of this site can be inspected from 
+                        a(
+                            href="https://github.com/Wolff-H/wolff-h.github.io.source"
+                            target="_blank"
+                        )
                             |Site Source
                 .navigation
                     .menu
@@ -24,23 +27,69 @@
                         .right
                             el-button.menu-item
                                 |Resume
-                            el-button.menu-item
+                            el-button.menu-item(
+                                @click="toSiteSource()"
+                            )
                                 |Site Source
-                            el-button.menu-item
+                            el-button.menu-item(
+                                @click="toGithub()"
+                            )
                                 |Github
                     .scroll-down.el-icon-bottom(
                         @click="scrollToContent()"
                     )
             .body
-                div(
-                    v-for="i in 100"
-                )
-                    |撑开高度（行{{   i   }}）
+                //- div(
+                //-     v-for="i in 100"
+                //- )
+                //-     |撑开高度（行{{   i   }}）
+                .demos-list
+                    el-popover(
+                        popper-class="project-preview-popover"
+                        content="drag-scroll"
+                        trigger="hover"
+                    )
+                        template(#reference="")
+                            .preview(
+                                @click="routeToDemo('drag-scroll')"
+                            )
+                                img(src="@/assets/images/demo-previews/drag-scroll.png" alt="drag-scroll")
+                    el-popover(
+                        popper-class="project-preview-popover"
+                        content="stick-element"
+                        trigger="hover"
+                    )
+                        template(#reference="")
+                            .preview(
+                                @click="routeToDemo('stick-element')"
+                            )
+                                img(src="@/assets/images/demo-previews/stick-element.png" alt="stick-element")
+                    el-popover(
+                        popper-class="project-preview-popover"
+                        content="tsp-graphing"
+                        trigger="hover"
+                    )
+                        template(#reference="")
+                            .preview(
+                                @click="routeToDemo('tsp-graphing')"
+                            )
+                                img(src="@/assets/images/demo-previews/tsp-graphing.png" alt="tsp-graphing")
+                    el-popover(
+                        popper-class="project-preview-popover"
+                        content="smart-algorithms"
+                        trigger="hover"
+                    )
+                        template(#reference="")
+                            .preview(
+                                @click="routeToDemo('smart-algorithms')"
+                            )
+                                img(src="@/assets/images/demo-previews/smart-algorithms.png" alt="smart-algorithms")
 </template>
 
 
 
 <script lang="ts">
+    import router from "@/core/router"
     import { defineComponent, ref } from "vue"
 
     export default defineComponent({
@@ -65,13 +114,28 @@
                 ref_home.value.scrollTop = ref_home.value.clientHeight
             }
 
+            function routeToDemo(demo_name: string)
+            {
+                router.push({ path: `/demos/${demo_name}` })
+            }
 
+            function toGithub()
+            {
+                window.open('https://github.com/Wolff-H/', '_blank')
+            }
+
+            function toSiteSource()
+            {
+                window.open('https://github.com/Wolff-H/wolff-h.github.io.source', '_blank')
+            }
 
             // return --------------------------------------------------------------------------------------------------
-            return{
-
+            return {
                 ref_home,
                 scrollToContent,
+                routeToDemo,
+                toGithub,
+                toSiteSource,
             }
         },
     })
@@ -137,6 +201,10 @@
                     color white
                     text-align right
 
+                    a
+                        // background-color $fog20
+                        color white
+
             >.navigation
                 display flex
                 height 72px
@@ -177,6 +245,27 @@
 
         >.body
             background-color white
+
+            >.demos-list
+                display flex
+                padding 20px 20%
+                flex-wrap wrap
+
+                .preview
+                    display flex
+                    width 268px
+                    height 268px
+                    margin 0px 20px 20px 0px
+                    align-items center
+                    border 1px solid $black20
+                    cursor pointer
+
+                    &:hover
+                        box-shadow 0px 0px 10px $blue60
+
+                    >img
+                        // height 100%
+                        width 100%
 
 .
     // 
