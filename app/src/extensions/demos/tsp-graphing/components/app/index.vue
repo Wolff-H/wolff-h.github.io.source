@@ -226,11 +226,12 @@
     import M from "./_M"
 
     import coords_WesternSahara from "./maps/coords_WesternSahara"
-    import { ElNotification } from "element-plus"
+    import { ElNotification, ElMessage } from "element-plus"
     import { Case } from "./types"
 
     import MarkdownBox from "@/plugins/markdown-box/index.vue"
     import MarkdownIntroduction from "./introduction.md"
+    import { setGlobalCursorState } from "@/core/logics"
 
     export default defineComponent({
         name: 'tsp-graphing-app',
@@ -317,6 +318,12 @@
                         // fetch experiment data //
                         if(datasets[opting_algorithm.value]['WesternSahara'] === null)
                         {
+                            ElMessage({
+                                type: 'info',
+                                message: 'Fetching dataset...',
+                            })
+                            setGlobalCursorState('progress')
+
                             M.getExperimentDataset(`${opting_algorithm.value}_WesternSahara`)
                             .then(({ data }) => {
                                 if(data === 'no such dataset')
@@ -326,6 +333,7 @@
                                         title: 'data unavailable',
                                         message: `Server responded: ${'no such dataset'}`,
                                     })
+                                    setGlobalCursorState()
                                 }
                                 else
                                 {
@@ -334,6 +342,7 @@
                                         title: 'data fetched successfully',
                                         message: `Fetched dataset of ${opting_algorithm.value}_WesternSahara`,
                                     })
+                                    setGlobalCursorState()
                                     datasets[opting_algorithm.value]['WesternSahara'] = data
                                     draw()
                                 }
