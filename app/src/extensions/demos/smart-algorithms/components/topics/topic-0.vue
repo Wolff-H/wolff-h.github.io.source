@@ -1,24 +1,32 @@
 <template lang="pug">.
     .topic(data-topic="0")
-        |主题 0
+        markdown-box(
+            :markdown_string="MarkdownContent"
+        )
 </template>
 
 
 
 <script lang="ts">
     import { defineComponent } from "vue"
+    import MarkdownBox from "@/plugins/markdown-box/index.vue"
+
+    import MarkdownContent from "./topic-0-content.md"
 
     export default defineComponent({
         name: 'topic-0',
         components:
         {
-            
+            [MarkdownBox.name]: MarkdownBox,
         },
         setup()
         {
             // data ----------------------------------------------------------------------------------------------------
             // 0 //
             // return --------------------------------------------------------------------------------------------------
+            return {
+                MarkdownContent,
+            }
         },
     })
 </script>

@@ -221,6 +221,7 @@
 
     >.content
         display flex
+        width 0px
         flex-grow 1
         flex-direction column
         overflow auto

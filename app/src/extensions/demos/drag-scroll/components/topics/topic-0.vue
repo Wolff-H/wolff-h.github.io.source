@@ -1,8 +1,8 @@
 <template lang="pug">.
     .topic(data-topic="0")
-        |主题 0
+        |Topic 0
         p
-            |好处：1、内存安全（运行时检查清除失效DOM和weakmap自动GC）；2、简单易用，api设计的很干净。
+            |好处：1、内存安全（运行时检查清除失效DOM和weakmap自动GC）；2、api设计的很干净。
 </template>
 
 

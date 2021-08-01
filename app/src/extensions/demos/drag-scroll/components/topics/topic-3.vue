@@ -1,6 +1,6 @@
 <template lang="pug">.
     .topic(data-topic="3")
-        |主题 3
+        |Topic 3
 </template>
 
 

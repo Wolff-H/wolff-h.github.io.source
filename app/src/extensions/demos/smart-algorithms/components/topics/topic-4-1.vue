@@ -1,6 +1,8 @@
 <template lang="pug">.
     .topic(data-topic="4-1")
-        |主题 4-1
+        iframe(
+            src="./html-files/multi-armed-bandit/index.html"
+        )
 </template>
 
 
@@ -9,7 +11,7 @@
     import { defineComponent } from "vue"
 
     export default defineComponent({
-        name: 'topic-0',
+        name: 'topic-4-1',
         components:
         {
             
@@ -31,6 +33,16 @@
 // 状态样式 -------------------------------------------------------------------------------------------------------------
 
 // 基础样式 -------------------------------------------------------------------------------------------------------------
+#demos .demo[data-demo='smart-algorithms'] .topic[data-topic='4-1']
+    width 100%
+    height 100%
+    padding 0px
+
+    iframe
+        width 100%
+        height 100%
+        border none
+
 .
     // 
 </style>
