@@ -1,4 +1,7 @@
 # wolff-h.github.io.source
+我的github主页的源码
+
+这个版本用Vue3重写了，架构设计和代码质量都进步很多。
 
 ## Project setup
 ```
