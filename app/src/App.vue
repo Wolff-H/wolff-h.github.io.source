@@ -1,5 +1,7 @@
 <template lang="pug">.
-    #app
+    #app(
+        @mouseup="setGlobalCursorState()"
+    )
         router-view
 </template>
 
@@ -9,6 +11,7 @@
     import { defineComponent, onMounted } from "vue"
     import { integration } from "./core";
     import { demo_module_name_to_name_dict, demo_name_to_module_name_dict } from "./core/logics/extensions/demos"
+    import { setGlobalCursorState } from "@/core/logics"
 
     export default defineComponent({
         name: 'app',
@@ -28,6 +31,9 @@
                 
             })
             // return --------------------------------------------------------------------------------------------------
+            return {
+                setGlobalCursorState,
+            }
         },
     })
 </script>

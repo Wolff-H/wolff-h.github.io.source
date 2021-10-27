@@ -20,6 +20,7 @@
             .resizer(
                 ref="ref_resizer"
                 @dblclick="resetWidth()"
+                @mousedown="setGlobalCursorState('ew-resize')"
             )
             .toggle-trigger-area
                 .toggle-button(
@@ -49,6 +50,7 @@
     import Links from "./links.vue"
     import TopicTree from "./topic-tree.vue"
     import { DemoName } from "@/core/types/extensions/demos"
+    import { setGlobalCursorState } from "@/core/logics"
 
     export default defineComponent({
         name: 'indexed-layout',
@@ -133,6 +135,7 @@
                 if_opened,
                 ref_sidebar,
                 ref_resizer,
+                setGlobalCursorState,
             }
         },
     })
