@@ -11,6 +11,7 @@ const modules =
     HandlelyResizable: integration.extensions.demos["HandlelyResizable"].registration.store_module,
     SmartAlgorithms: integration.extensions.demos["SmartAlgorithms"].registration.store_module,
     StickElement: integration.extensions.demos["StickElement"].registration.store_module,
+    SimpleDraggable: integration.extensions.demos["SimpleDraggable"].registration.store_module,
     TSPGraphing: integration.extensions.demos["TSPGraphing"].registration.store_module,
 }
 

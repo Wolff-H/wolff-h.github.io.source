@@ -1,11 +1,11 @@
 
-/**********************************************************************************************************************/
 
 interface Options
 {
+    hooks: DraggableData["hooks"]
     destroy: boolean
     avoid: HTMLElement[]
-    // handle: HTMLElement
+    handles: HTMLElement[]
 }
 
 interface SimpleDraggable
@@ -20,6 +20,7 @@ type DraggableToDraggableDataMap = WeakMap<HTMLElement, DraggableData>
 
 interface DraggableData
 {
+    draggable: HTMLElement|null
     mouse_start_x: number
     mouse_start_y: number
     draggable_start_left: number
@@ -31,38 +32,42 @@ interface DraggableData
         dragEnd?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void
     }
     avoid: HTMLElement[]
+    handles: HTMLElement[]
+    data_transfer?: any
 }
 
-
-
 /**
- * 
+ * ！！！TODO：可以考虑让simpleDraggable返回刚刚创建的draggable的draggable_data的引用，这样用户可以在外层设置data_transfer
  * @param draggable 拖拽物。
  * @param hooks 拖拽行为的生命周期钩子。在钩子中返回false将会阻止该行为的默认动作。
  * @param options 其他配置。传destroy为true则删除元素上的拖拽监听。
  */
 function simpleDraggable(
     draggable: HTMLElement,
-    hooks:
-    {
-        dragStart?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void|false,
-        drag?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void|false,
-        dragEnd?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void,
-    } = {},
     options:
     {
+        hooks?:
+        {
+            dragStart?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void|false,
+            drag?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void|false,
+            dragEnd?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void,
+        },
         destroy?: boolean,
         /** 拖拽行为将不会在这些元素上发生 */
         avoid?: HTMLElement[],
         /** 拖拽行为将仅会在这个元素上发生（当同时定义了avoid和handle，仅handle会生效） */
-        handle?: HTMLElement,
+        handles?: HTMLElement[],
+        /** data carried on data_transfer, the passed data will replace the entire data_transfer */
+        data?: any,
     } = {},
 ){
     // defaults --------------------------------------------------------------------------------------------------------
     const default_options: Options =
     {
+        hooks: {},
         destroy: false,
         avoid: [],
+        handles: [],
     }
 
     if(!window.__SimpleDraggable)
@@ -98,34 +103,40 @@ function simpleDraggable(
     // #2. create - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     if(!map.has(draggable))
     {
-        
         map.set(
             draggable,
             {
+                draggable: draggable,
                 mouse_start_x: 0,
                 mouse_start_y: 0,
                 draggable_start_top: 0, // parseOffset(draggable.style.top),
                 draggable_start_left: 0, // parseOffset(draggable.style.left),
-                hooks: hooks,
+                hooks: _options.hooks,
                 avoid: _options.avoid,
+                handles: _options.handles,
+                ...(options.data ? { data_transfer: options.data } : {}),
             }
         )
 
         draggable.addEventListener('mousedown', _dragStart)
+
+        return map.get(draggable)
     }
     // #3. update - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     else
     {
-        
         map.set(
             draggable,
             {
+                draggable: draggable,
                 mouse_start_x: 0,
                 mouse_start_y: 0,
                 draggable_start_top: 0, // parseOffset(draggable.style.top),
                 draggable_start_left: 0, // parseOffset(draggable.style.left),
-                hooks: hooks,
+                hooks: _options.hooks,
                 avoid: _options.avoid,
+                handles: _options.handles,
+                ...(options.data ? { data_transfer: options.data } : {}),
             }
         )
     }
@@ -133,9 +144,7 @@ function simpleDraggable(
 
 function parseOffset(style_offset_string: string)
 {
-    const parsed = parseInt(style_offset_string)
-
-    return parsed ? parsed : 0
+    return parseInt(style_offset_string) || 0
 }
 
 function _dragStart(this: HTMLElement, event: MouseEvent)
@@ -147,8 +156,11 @@ function _dragStart(this: HTMLElement, event: MouseEvent)
     // 在最开始，调用自定义hook //
     if(draggable_data.hooks.dragStart)
     {
-        if(draggable_data.hooks.dragStart(event, draggable, draggable_data) === false)
-        {
+        if(
+            draggable_data.hooks.dragStart(event, draggable, draggable_data) === false ||
+            !draggable_data.handles.includes(event.target as HTMLElement) ||
+            draggable_data.avoid.includes(event.target as HTMLElement)
+        ){
             return
         }
     }
@@ -204,8 +216,6 @@ function _dragStop(event: MouseEvent)
         draggable_data.hooks.dragEnd(event, draggable, draggable_data)
     }
 }
-
-/**********************************************************************************************************************/
 
 export {
     DraggableData,

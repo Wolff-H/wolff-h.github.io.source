@@ -14,7 +14,7 @@ const demo_module_names = Object.values(demos).map(info => info.meta.module_name
 
 const demo_name_to_module_name_dict = Object.fromEntries(Object.values(demos).map(info => [
     info.meta.name, info.meta.module_name
-])) as KVTuplesToObject<typeof demo_names, typeof demo_module_names>    // Don't do typing like this, it's VERY unsafe.
+])) as KVTuplesToObject<typeof demo_names, typeof demo_module_names>    // Don't do typing like this, it's TOTALLY UNSAFE.
 
 const demo_module_name_to_name_dict = Object.fromEntries(Object.values(demos).map(info => [
     info.meta.module_name, info.meta.name

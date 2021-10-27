@@ -3,6 +3,7 @@ import DragScroll from "@/extensions/demos/drag-scroll"
 import HandlelyResizable from "@/extensions/demos/handlely-resizable"
 import SmartAlgorithms from "@/extensions/demos/smart-algorithms"
 import StickElement from "@/extensions/demos/stick-element"
+import SimpleDraggable from "@/extensions/demos/simple-draggable"
 import TSPGraphing from "@/extensions/demos/tsp-graphing"
 
 /**********************************************************************************************************************/
@@ -15,6 +16,7 @@ const integration =
             DragScroll,
             HandlelyResizable,
             StickElement,
+            SimpleDraggable,
             SmartAlgorithms,
             TSPGraphing,
         },
