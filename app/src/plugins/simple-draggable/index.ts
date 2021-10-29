@@ -153,17 +153,23 @@ function _dragStart(this: HTMLElement, event: MouseEvent)
     const map: DraggableToDraggableDataMap = window.__SimpleDraggable.draggable_to_draggable_data_map
     const draggable_data = map.get(draggable)!
 
+    // 检查是否通过handles或avoid //
+    if(
+        (draggable_data.handles.length > 0 && !draggable_data.handles.includes(event.target as HTMLElement)) ||
+        (draggable_data.avoid.length > 0 && draggable_data.avoid.includes(event.target as HTMLElement))
+    ){
+        return
+    }
     // 在最开始，调用自定义hook //
-    if(draggable_data.hooks.dragStart)
+    else if(draggable_data.hooks.dragStart)
     {
-        if(
-            draggable_data.hooks.dragStart(event, draggable, draggable_data) === false ||
-            !draggable_data.handles.includes(event.target as HTMLElement) ||
-            draggable_data.avoid.includes(event.target as HTMLElement)
-        ){
+        if(draggable_data.hooks.dragStart(event, draggable, draggable_data) === false)
+        {
             return
         }
     }
+
+    
     
     // 默认动作： //
     // 设置draggable的初始状态 //

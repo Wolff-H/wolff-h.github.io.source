@@ -272,6 +272,15 @@
 
         p
             color $black60
+        
+        strong
+            color $volcano40
+        
+        code
+            background-color $black05
+            padding 0px 4px
+            border-radius 2px
+            font-family consolas
 
 .
     // 

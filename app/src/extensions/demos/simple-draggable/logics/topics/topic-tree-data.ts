@@ -15,12 +15,12 @@ const topic_tree_data: TopicTreeData =
     {
         code: '2',
         code_full: '2',
-        label: '[to be completed]',
+        label: 'Drag handles and avoidance',
     },
     {
         code: '3',
         code_full: '3',
-        label: 'Update specification',
+        label: 'Drag event hooks',
     },
     {
         code: '4',
