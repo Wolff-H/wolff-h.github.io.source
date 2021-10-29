@@ -70,12 +70,12 @@
             // methods -------------------------------------------------------------------------------------------------
             function lockX()
             {
-                handlelyResizable(ref_rh_1.value, ref_r_1.value, { y: 0 })
+                handlelyResizable(ref_rh_1.value, ref_r_1.value, { movement: { y: 0 } })
                 resizable_directions.value = ['x']
             }
             function lockY()
             {
-                handlelyResizable(ref_rh_1.value, ref_r_1.value, { x: 0 })
+                handlelyResizable(ref_rh_1.value, ref_r_1.value, { movement: { x: 0 } })
                 resizable_directions.value = ['y']
             }
             function unlock()

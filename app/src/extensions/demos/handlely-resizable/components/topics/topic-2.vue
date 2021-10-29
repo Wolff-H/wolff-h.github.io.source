@@ -127,12 +127,12 @@
             // lifecycles ----------------------------------------------------------------------------------------------
             onMounted(() => {
                 nextTick(() => {
-                    handlelyResizable(ref_rh_1.value, ref_r_1.value, { y: 0 })
-                    handlelyResizable(ref_rh_2.value, ref_r_2.value, { x: 0 })
-                    handlelyResizable(ref_rh_3.value, ref_r_3.value, { x: 1, y: 1 })
-                    handlelyResizable(ref_rh_4.value, ref_r_4.value, { x: -1, y: 1 })
-                    handlelyResizable(ref_rh_5.value, ref_r_5.value, { x: -1, y: -1 })
-                    handlelyResizable(ref_rh_6.value, ref_r_6.value, { x: 1, y: -1 })
+                    handlelyResizable(ref_rh_1.value, ref_r_1.value, { movement: { y: 0 } })
+                    handlelyResizable(ref_rh_2.value, ref_r_2.value, { movement: { x: 0 } })
+                    handlelyResizable(ref_rh_3.value, ref_r_3.value, { movement: { x: 1, y: 1 } })
+                    handlelyResizable(ref_rh_4.value, ref_r_4.value, { movement: { x: -1, y: 1 } })
+                    handlelyResizable(ref_rh_5.value, ref_r_5.value, { movement: { x: -1, y: -1 } })
+                    handlelyResizable(ref_rh_6.value, ref_r_6.value, { movement: { x: 1, y: -1 } })
                 })
             })
 

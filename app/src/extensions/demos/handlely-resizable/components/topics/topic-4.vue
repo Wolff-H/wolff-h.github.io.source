@@ -62,7 +62,7 @@
             // methods -------------------------------------------------------------------------------------------------
             function disable()
             {
-                handlelyResizable(ref_rh_1.value, ref_r_1.value, { x: 0, y: 0 })
+                handlelyResizable(ref_rh_1.value, ref_r_1.value, { movement: { x: 0, y: 0 } })
             }
             function enable()
             {
