@@ -123,7 +123,7 @@
             // lifecycles ----------------------------------------------------------------------------------------------
             onMounted(() => {
                 nextTick(() => {
-                    handlelyResizable(ref_resizer.value, ref_sidebar.value, { y: 0 })
+                    handlelyResizable(ref_resizer.value, ref_sidebar.value, { movement: { y: 0 } })
                 })
             })
 

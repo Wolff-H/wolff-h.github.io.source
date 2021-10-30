@@ -56,7 +56,7 @@
             // lifecycles ----------------------------------------------------------------------------------------------
             onMounted(() => {
                 nextTick(() => {
-                    dragScroll(ref_draggable.value, ref_scrollable.value, { swapped: true })
+                    dragScroll(ref_draggable.value, ref_scrollable.value, { movement: { swapped: true } })
                 })
             })
 

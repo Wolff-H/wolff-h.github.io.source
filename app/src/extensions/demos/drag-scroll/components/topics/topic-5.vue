@@ -75,7 +75,7 @@
                         document.querySelectorAll(`#demos .demo[data-demo='drag-scroll'] .topic[data-topic='5'] .ruler-container .ruler-element>span>span`)
                     ) as HTMLElement[]
 
-                    dragScroll(ref_ruler_draggable.value, ref_ruler_scrollable.value, {}, { avoid: avoid_targets })
+                    dragScroll(ref_ruler_draggable.value, ref_ruler_scrollable.value, { avoid: avoid_targets })
                 })
             })
 

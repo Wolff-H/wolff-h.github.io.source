@@ -6,14 +6,16 @@ interface Movement
     x: [drag_trigger_threshold: number, scroll_respond_vector: number]
     y: [drag_trigger_threshold: number, scroll_respond_vector: number]
     swapped: boolean
-    constrained: boolean
 }
 
 interface Options
 {
+    movement: Movement
     destroy: boolean
     override: boolean
     avoid: HTMLElement[]
+    constrained: boolean
+    hooks: DraggableData["hooks"]
 }
 
 interface DragScrollData
@@ -32,6 +34,12 @@ interface DraggableData
     mouse_start_y: number
     avoid: HTMLElement[]
     scrollable_data_array: ScrollableData[]
+    hooks:
+    {
+        dragStart?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void|false
+        drag?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void|false
+        dragEnd?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void
+    }
 }
 
 interface ScrollableData
@@ -40,6 +48,7 @@ interface ScrollableData
     scrollable_start_scroll_x: number
     scrollable_start_scroll_y: number
     movement: Movement
+    constrained: boolean
 }
 
 
@@ -54,43 +63,50 @@ interface ScrollableData
 function dragScroll(
     draggable: HTMLElement,
     scrollable: HTMLElement|null,
-    movement:
-    {
-        x?: [number, number]
-        y?: [number, number]
-        swapped?: boolean
-        constrained?: boolean
-    } = {},
     options:
     {
+        movement?:
+        {
+            x?: [number, number]
+            y?: [number, number]
+            swapped?: boolean
+        },
+        constrained?: boolean
         destroy?: boolean,
         override?: boolean,
         avoid?: HTMLElement[],
+        hooks?:
+        {
+            dragStart?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void|false
+            drag?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void|false
+            dragEnd?: (event: MouseEvent, draggable: HTMLElement, draggable_data: DraggableData) => void
+        }
     } = {},
-)
-{
+){
     // defaults --------------------------------------------------------------------------------------------------------
     const default_movement: Movement =
     {
         x: [1, 1],
         y: [1, 1],
         swapped: false,
-        constrained: false,
     }
 
     const default_options: Options =
     {
+        movement: default_movement,
         destroy: false,
         override: false,
         avoid: [],
+        constrained: false,
+        hooks: {},
     }
 
     if(!window.__DragScroll)
     {
         window.__DragScroll =
         {
-            tool_name: 'drag-scroll',
-            description: 'Scroll elements corresponding to a drag behavior.',
+            tool_name: '_drag-scroll',
+            description: 'Scroll elements corresponding to a _drag behavior.',
             draggable_to_draggable_data_map: new WeakMap(),
             active_draggable: null,
         } as DragScrollData
@@ -99,8 +115,19 @@ function dragScroll(
     const map: DraggableToDraggableDataMap = window.__DragScroll.draggable_to_draggable_data_map
     
     // composed params -------------------------------------------------------------------------------------------------
-    const _movement = Object.assign({}, default_movement, movement)
-    const _options = Object.assign({}, default_options, options)
+    // const _movement = Object.assign({}, default_movement, options?.movement)
+    // const _options = Object.assign({}, default_options, options)
+
+    const _options =
+    {
+        ...default_options,
+        ...options,
+        movement:
+        {
+            ...default_movement,
+            ...options.movement,
+        }
+    }
 
     // take one desired action -----------------------------------------------------------------------------------------
     // #1. destroy - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -111,7 +138,7 @@ function dragScroll(
         {
             map.delete(draggable)
 
-            draggable.removeEventListener('mousedown', startDrag)
+            draggable.removeEventListener('mousedown', _dragStart)
         }
 
         return
@@ -148,19 +175,21 @@ function dragScroll(
                 mouse_start_x: 0,
                 mouse_start_y: 0,
                 avoid: _options.avoid,
+                hooks: _options.hooks,
                 scrollable_data_array:
                 [
                     {
                         scrollable: scrollable,
                         scrollable_start_scroll_x: 0,
                         scrollable_start_scroll_y: 0,
-                        movement: _movement,
+                        movement: _options.movement,
+                        constrained: _options.constrained,
                     },
                 ],
             }
         )
 
-        draggable.addEventListener('mousedown', startDrag)
+        draggable.addEventListener('mousedown', _dragStart)
     }
     // #3. update - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     else
@@ -174,13 +203,15 @@ function dragScroll(
                     mouse_start_x: 0,
                     mouse_start_y: 0,
                     avoid: _options.avoid,
+                    hooks: _options.hooks,
                     scrollable_data_array:
                     [
                         {
                             scrollable: scrollable,
                             scrollable_start_scroll_x: 0,
                             scrollable_start_scroll_y: 0,
-                            movement: _movement,
+                            movement: _options.movement,
+                            constrained: _options.constrained,
                         },
                     ],
                 }
@@ -203,7 +234,8 @@ function dragScroll(
 
                 if(target_scrollable_data)
                 {
-                    target_scrollable_data.movement = _movement
+                    target_scrollable_data.movement = _options.movement
+                    target_scrollable_data.constrained = _options.constrained
                 }
             }
         }
@@ -219,7 +251,8 @@ function dragScroll(
                         scrollable: scrollable,
                         scrollable_start_scroll_x: 0,
                         scrollable_start_scroll_y: 0,
-                        movement: _movement,
+                        movement: _options.movement,
+                        constrained: _options.constrained,
                     }
                 )
             }
@@ -227,9 +260,8 @@ function dragScroll(
     }
 }
 
-function startDrag(this: HTMLElement, event: MouseEvent)
+function _dragStart(this: HTMLElement, event: MouseEvent)
 { 
-    // const draggable = event.target as HTMLElement
     const draggable = this
     const map: DraggableToDraggableDataMap = window.__DragScroll.draggable_to_draggable_data_map
     const draggable_data = map.get(draggable)!
@@ -251,16 +283,27 @@ function startDrag(this: HTMLElement, event: MouseEvent)
     
         window.__DragScroll.active_draggable = draggable
     
-        document.addEventListener('mousemove', drag)
-        document.addEventListener('mouseup', stopDrag)
+        document.addEventListener('mousemove', _drag)
+        document.addEventListener('mouseup', _dragEnd)
+    }
+    // 在最开始，调用自定义hook //
+    if(!draggable_data.hooks.dragStart?.(event, draggable, draggable_data))
+    {
+        return
     }
 }
 
-function drag(event: MouseEvent)
+function _drag(event: MouseEvent)
 {
     const draggable = window.__DragScroll.active_draggable as HTMLElement
     const map: DraggableToDraggableDataMap = window.__DragScroll.draggable_to_draggable_data_map
     const draggable_data = map.get(draggable)!
+
+    // 在最开始，调用自定义hook //
+    if(!draggable_data.hooks.drag?.(event, draggable, draggable_data))
+    {
+        return
+    }
 
     let i = draggable_data.scrollable_data_array.length
 
@@ -270,7 +313,7 @@ function drag(event: MouseEvent)
 
         if(scrollable_data.scrollable)    // 用户有可能在删除scrollable时，并没有手动清除scrollable_data_array中保存的对应数据
         {
-            if(!scrollable_data.movement.constrained || event.target === draggable)
+            if(!scrollable_data.constrained || event.target === draggable)
             {
                 // draggable触发步数（1份阈值触发1步） //
                 const step_x = Math.ceil((draggable_data.mouse_start_x - event.clientX) / scrollable_data.movement.x[0])
@@ -309,10 +352,20 @@ function drag(event: MouseEvent)
     }
 }
 
-function stopDrag()
+function _dragEnd(event: MouseEvent)
 {
-    document.removeEventListener('mousemove', drag)
-    document.removeEventListener('mouseup', stopDrag)
+    const draggable = window.__DragScroll.active_draggable as HTMLElement
+    const map: DraggableToDraggableDataMap = window.__DragScroll.draggable_to_draggable_data_map
+    const draggable_data = map.get(draggable)!
+
+    document.removeEventListener('mousemove', _drag)
+    document.removeEventListener('mouseup', _dragEnd)
+
+    // 在最后，调用自定义hook //
+    if(!draggable_data.hooks.dragEnd?.(event, draggable, draggable_data))
+    {
+        return
+    }
 }
 
 /**********************************************************************************************************************/

@@ -74,12 +74,12 @@
 
             function setScale_25_25()
             {
-                dragScroll(ref_draggable.value, ref_scrollable.value, { x: [25, 25], y: [25, 25] })
+                dragScroll(ref_draggable.value, ref_scrollable.value, { movement: { x: [25, 25], y: [25, 25] } })
             }
 
             function disable()
             {
-                dragScroll(ref_draggable.value, ref_scrollable.value, { x: [0, 0], y: [0, 0] })
+                dragScroll(ref_draggable.value, ref_scrollable.value, { movement: { x: [0, 0], y: [0, 0] } })
             }
 
             function distroy()

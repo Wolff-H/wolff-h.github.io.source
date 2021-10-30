@@ -180,16 +180,16 @@
             onMounted(() => {
                 nextTick(() => {
                     dragScroll(ref_draggable.value, ref_scrollable.value)
-                    dragScroll(ref_ruler_draggable.value, ref_ruler_scrollable.value, { y: [0, 0] })
+                    dragScroll(ref_ruler_draggable.value, ref_ruler_scrollable.value, { movement: { y: [0, 0] } })
 
-                    dragScroll(ref_draggable_1.value, ref_scrollable_1.value, { x: [5, 1], y: [5, 1] })
-                    dragScroll(ref_ruler_draggable_1.value, ref_ruler_scrollable_1.value, { x: [5, 1], y: [0, 0] })
+                    dragScroll(ref_draggable_1.value, ref_scrollable_1.value, { movement: { x: [5, 1], y: [5, 1] } })
+                    dragScroll(ref_ruler_draggable_1.value, ref_ruler_scrollable_1.value, { movement: { x: [5, 1], y: [0, 0] } })
 
-                    dragScroll(ref_draggable_2.value, ref_scrollable_2.value, { x: [1, 5], y: [1, 5] })
-                    dragScroll(ref_ruler_draggable_2.value, ref_ruler_scrollable_2.value, { x: [1, 5], y: [0, 0] })
+                    dragScroll(ref_draggable_2.value, ref_scrollable_2.value, { movement: { x: [1, 5], y: [1, 5] } })
+                    dragScroll(ref_ruler_draggable_2.value, ref_ruler_scrollable_2.value, { movement: { x: [1, 5], y: [0, 0] } })
 
-                    dragScroll(ref_draggable_3.value, ref_scrollable_3.value, { x: [10, 10], y: [10, 10] })
-                    dragScroll(ref_ruler_draggable_3.value, ref_ruler_scrollable_3.value, { x: [10, 10], y: [0, 0] })
+                    dragScroll(ref_draggable_3.value, ref_scrollable_3.value, { movement: { x: [10, 10], y: [10, 10] } })
+                    dragScroll(ref_ruler_draggable_3.value, ref_ruler_scrollable_3.value, { movement: { x: [10, 10], y: [0, 0] } })
                 })
             })
             // return --------------------------------------------------------------------------------------------------

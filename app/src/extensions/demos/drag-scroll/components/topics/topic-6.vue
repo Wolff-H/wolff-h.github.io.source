@@ -97,8 +97,8 @@
             // lifecycles ----------------------------------------------------------------------------------------------
             onMounted(() => {
                 nextTick(() => {
-                    dragScroll(ref_thead.value, ref_container.value, { y: [0, 0] })
-                    dragScroll(ref_col1_drag.value, ref_container.value, { x: [0, 0] })
+                    dragScroll(ref_thead.value, ref_container.value, { movement: { y: [0, 0] } })
+                    dragScroll(ref_col1_drag.value, ref_container.value, { movement: { x: [0, 0] } })
                     stickElement(ref_container.value, ref_thead.value, { top: 0 })
                     stickElement(ref_container.value, ref_col1_drag.value, { left: 0 })
                     stickElement(ref_container.value, ref_col1_head.value, { top: 0 })
@@ -145,7 +145,7 @@
         table.col-1-drag
             position relative
             z-index 1
-            border-collapse collapse
+            border-collapse separate
             table-layout fixed
             cursor grab
             user-select none
@@ -173,23 +173,24 @@
                 position relative
 
                 td
-                    min-width 56px
+                    min-width 58px
                     height 40px
                     padding-left 10px
-                    border 1px solid $black10
-                    // border-left 1px solid $black40
-                    // border-right 1px solid $black40
+                    border-right 1px solid $black40
+                    border-bottom 1px solid $black10
+                    border-left 1px solid $black40
                     background-color $black03
                     color $black60
 
         table.main
             position relative
-            border-collapse collapse
+            border-collapse separate
             table-layout fixed
 
             >thead
                 display table-caption
                 position relative
+                height 40px
                 cursor grab
                 user-select none
 
@@ -201,7 +202,9 @@
                         height 40px
                         justify-content center
                         align-items center
-                        border 1px solid $black40
+                        border-top 1px solid $black40
+                        border-right 1px solid $black40
+                        border-bottom 1px solid $black40
                         border-left none
                         background-color $black10
                         color $black80
@@ -212,14 +215,15 @@
                     min-width 220px
                     height 40px
                     padding-left 10px
-                    border 1px solid $black10
+                    border-right 1px solid $black10
+                    border-bottom 1px solid $black10
                     border-left none
                     color $black60
 
             >.col-1-drag
                 position absolute
                 top 0px
-                width 56px
+                width 58px
                 height 100%
                 background-color $shadow20
 
