@@ -102,10 +102,7 @@ function _dragStart(event: MouseEvent)
     const resizer_data = map.get(resizer)!
 
     // 调用自定义hook //
-    if(!resizer_data.hooks?.resizeStart?.(event, resizer, resizer_data))
-    {
-        return
-    }
+    if(resizer_data.hooks?.resizeStart && resizer_data.hooks?.resizeStart(event, resizer, resizer_data) === false) return
 
     // 初始化resizer_data //
     map.set(
@@ -134,10 +131,8 @@ function _drag(event: MouseEvent)
     const map:ResizerDataMap = window.__HandlelyResizable.resizer_data_map
     const resizer_data = map.get(resizer)!
 
-    if(!resizer_data.hooks?.resize?.(event, resizer, resizer_data))
-    {
-        return
-    }
+    // 调用自定义hook //
+    if(resizer_data.hooks?.resize && resizer_data.hooks?.resize(event, resizer, resizer_data) === false) return
 
     if(resizer_data.movement.x !== 0)
     {
@@ -158,9 +153,10 @@ function _dragEnd(event: MouseEvent)
     document.removeEventListener('mousemove', _drag)
     document.removeEventListener('mouseup', _dragEnd)
 
-    if(!resizer_data.hooks?.resizeEnd?.(event, resizer, resizer_data))
+    // 调用自定义hook //
+    if(resizer_data.hooks?.resizeEnd)
     {
-        return
+        resizer_data.hooks?.resizeEnd(event, resizer, resizer_data)
     }
 }
 

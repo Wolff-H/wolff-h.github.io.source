@@ -115,9 +115,6 @@ function dragScroll(
     const map: DraggableToDraggableDataMap = window.__DragScroll.draggable_to_draggable_data_map
     
     // composed params -------------------------------------------------------------------------------------------------
-    // const _movement = Object.assign({}, default_movement, options?.movement)
-    // const _options = Object.assign({}, default_options, options)
-
     const _options =
     {
         ...default_options,
@@ -266,6 +263,9 @@ function _dragStart(this: HTMLElement, event: MouseEvent)
     const map: DraggableToDraggableDataMap = window.__DragScroll.draggable_to_draggable_data_map
     const draggable_data = map.get(draggable)!
 
+    // 调用自定义hook //
+    if(draggable_data.hooks?.dragStart && draggable_data.hooks?.dragStart(event, draggable, draggable_data) === false) return
+
     // 仅当鼠标不是在避免元素上按下 //
     if(!draggable_data.avoid.includes(event.target as HTMLElement))
     {
@@ -286,11 +286,6 @@ function _dragStart(this: HTMLElement, event: MouseEvent)
         document.addEventListener('mousemove', _drag)
         document.addEventListener('mouseup', _dragEnd)
     }
-    // 在最开始，调用自定义hook //
-    if(!draggable_data.hooks.dragStart?.(event, draggable, draggable_data))
-    {
-        return
-    }
 }
 
 function _drag(event: MouseEvent)
@@ -299,11 +294,8 @@ function _drag(event: MouseEvent)
     const map: DraggableToDraggableDataMap = window.__DragScroll.draggable_to_draggable_data_map
     const draggable_data = map.get(draggable)!
 
-    // 在最开始，调用自定义hook //
-    if(!draggable_data.hooks.drag?.(event, draggable, draggable_data))
-    {
-        return
-    }
+    // 调用自定义hook //
+    if(draggable_data.hooks?.drag && draggable_data.hooks?.drag(event, draggable, draggable_data) === false) return
 
     let i = draggable_data.scrollable_data_array.length
 
@@ -361,10 +353,10 @@ function _dragEnd(event: MouseEvent)
     document.removeEventListener('mousemove', _drag)
     document.removeEventListener('mouseup', _dragEnd)
 
-    // 在最后，调用自定义hook //
-    if(!draggable_data.hooks.dragEnd?.(event, draggable, draggable_data))
+    // 调用自定义hook //
+    if(draggable_data.hooks?.dragEnd)
     {
-        return
+        draggable_data.hooks?.dragEnd(event, draggable, draggable_data)
     }
 }
 
