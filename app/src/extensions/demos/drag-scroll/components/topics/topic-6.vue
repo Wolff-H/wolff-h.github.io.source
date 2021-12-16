@@ -68,7 +68,7 @@
     import DemoBox from "@/core/interface/components/_demo-box/index.vue"
 
     import dragScroll from "@/plugins/drag-scroll"
-    import stickElement from "@/plugins/stick-element"
+    import stickElement from "stick-element"
     import HighlightedCode from "@/core/interface/components/_highlighted-code/index.vue"
     import CodeSnippets from "@/extensions/demos/drag-scroll/logics/topics/code-snippets/topic-6"
 
@@ -99,9 +99,15 @@
                 nextTick(() => {
                     dragScroll(ref_thead.value, ref_container.value, { movement: { y: [0, 0] } })
                     dragScroll(ref_col1_drag.value, ref_container.value, { movement: { x: [0, 0] } })
-                    stickElement(ref_container.value, ref_thead.value, { top: 0 })
-                    stickElement(ref_container.value, ref_col1_drag.value, { left: 0 })
-                    stickElement(ref_container.value, ref_col1_head.value, { top: 0 })
+                    stickElement(ref_container.value, ref_thead.value, {
+                        limits: { top: 0 }
+                    })
+                    stickElement(ref_container.value, ref_col1_drag.value, {
+                        limits: { left: 0 }
+                    })
+                    stickElement(ref_container.value, ref_col1_head.value, {
+                        limits: { top: 0 }
+                    })
                 })
             })
 

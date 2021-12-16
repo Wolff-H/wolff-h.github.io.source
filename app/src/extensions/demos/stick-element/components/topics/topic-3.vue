@@ -47,7 +47,7 @@
 
     import DemoBox from "@/core/interface/components/_demo-box/index.vue"
 
-    import stickElement from "@/plugins/stick-element"
+    import stickElement from "stick-element"
 
     export default defineComponent({
         name: 'topic-3',
@@ -71,8 +71,12 @@
             // lifecycles ----------------------------------------------------------------------------------------------
             onMounted(() => {
                 nextTick(() => {
-                    stickElement(ref_container.value, ref_sticker.value, { top: 10, left: 10 })
-                    stickElement(ref_container_1.value, ref_sticker_1.value, { top: 10, left: 10, relative_to: 'self' })
+                    stickElement(ref_container.value, ref_sticker.value, {
+                        limits: { top: 10, left: 10 }
+                    })
+                    stickElement(ref_container_1.value, ref_sticker_1.value, {
+                        limits: { top: 10, left: 10, relative_to: 'self' }
+                    })
                 })
             })
 

@@ -35,7 +35,7 @@
 
     import DemoBox from "@/core/interface/components/_demo-box/index.vue"
 
-    import stickElement from "@/plugins/stick-element"
+    import stickElement from "stick-element"
     import HighlightedCode from "@/core/interface/components/_highlighted-code/index.vue"
     import CodeSnippets from "@/extensions/demos/drag-scroll/logics/topics/code-snippets/topic-5"
 
@@ -61,8 +61,12 @@
             // lifecycles ----------------------------------------------------------------------------------------------
             onMounted(() => {
                 nextTick(() => {
-                    stickElement(ref_container.value, ref_sticker.value, { top: 0, left: 0 })
-                    stickElement(ref_container.value, ref_sticker_1.value, { left: 50 })
+                    stickElement(ref_container.value, ref_sticker.value, {
+                        limits: { top: 0, left: 0 }
+                    })
+                    stickElement(ref_container.value, ref_sticker_1.value, {
+                        limits: { left: 50 }
+                    })
                 })
             })
 
