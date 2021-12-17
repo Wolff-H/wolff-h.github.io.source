@@ -86,6 +86,11 @@ body
     // *
     //     scrollbar-width thin
     //     scrollbar-color $black25 $black05
+    
+    // img
+    //     user-select initial
+    *
+        user-select none
 .
     // 
 </style>

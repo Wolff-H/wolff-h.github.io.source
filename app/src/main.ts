@@ -14,6 +14,7 @@ import router from "./core/router"
 // 4、工具代码（一般是工具库）
 
 // 5、样式
+import "./assets/stylesheets/overall/index.styl"
 import "./assets/stylesheets/element-plus-customized/index.scss"
 import "./assets/stylesheets/element-plus-override/index.styl"
 import "highlight.js/styles/atom-one-light.css"

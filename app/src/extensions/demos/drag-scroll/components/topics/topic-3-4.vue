@@ -56,7 +56,9 @@
             // lifecycles ----------------------------------------------------------------------------------------------
             onMounted(() => {
                 nextTick(() => {
-                    dragScroll(ref_draggable.value, ref_scrollable.value, { constrained: true })
+                    dragScroll(ref_draggable.value, ref_scrollable.value, {
+                        constrained: true
+                    })
                 })
             })
             // return --------------------------------------------------------------------------------------------------
