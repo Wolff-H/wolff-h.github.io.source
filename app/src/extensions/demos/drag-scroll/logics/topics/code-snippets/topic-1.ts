@@ -19,7 +19,7 @@ script:
 <script lang="ts">
     import { defineComponent, nextTick, onMounted, ref } from "vue"
 
-    import dragScroll from "@/plugins/drag-scroll"
+    import dragScroll from "dragroll"
 
     export default defineComponent({
         setup()

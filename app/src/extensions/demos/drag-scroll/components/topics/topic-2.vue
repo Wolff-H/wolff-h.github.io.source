@@ -33,7 +33,7 @@
 <script lang="ts">
     import { defineComponent, nextTick, onMounted, ref } from "vue"
     import DemoBox from "@/core/interface/components/_demo-box/index.vue"
-    import dragScroll from "@/plugins/drag-scroll"
+    import dragScroll from "dragroll"
     import HighlightedCode from "@/core/interface/components/_highlighted-code/index.vue"
     import CodeSnippets from "@/extensions/demos/drag-scroll/logics/topics/code-snippets/topic-2"
 
