@@ -100,13 +100,13 @@
                     dragScroll(ref_thead.value, ref_container.value, { movement: { y: [0, 0] } })
                     dragScroll(ref_col1_drag.value, ref_container.value, { movement: { x: [0, 0] } })
                     stickElement(ref_container.value, ref_thead.value, {
-                        limits: { top: 0 }
+                        movement: { top: 0 }
                     })
                     stickElement(ref_container.value, ref_col1_drag.value, {
-                        limits: { left: 0 }
+                        movement: { left: 0 }
                     })
                     stickElement(ref_container.value, ref_col1_head.value, {
-                        limits: { top: 0 }
+                        movement: { top: 0 }
                     })
                 })
             })

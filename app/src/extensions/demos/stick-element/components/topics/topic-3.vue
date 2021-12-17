@@ -3,7 +3,7 @@
         h1
             |Reletivity reference
         p
-            |Use the "relative_to" parameter to determine wether the movement limits of the sticker are relative to itself or some container else.
+            |Use the "relative_to" parameter to determine wether the movement movement of the sticker are relative to itself or some container else.
         h3
             |Relative to container.
         p
@@ -72,10 +72,10 @@
             onMounted(() => {
                 nextTick(() => {
                     stickElement(ref_container.value, ref_sticker.value, {
-                        limits: { top: 10, left: 10 }
+                        movement: { top: 10, left: 10 }
                     })
                     stickElement(ref_container_1.value, ref_sticker_1.value, {
-                        limits: { top: 10, left: 10, relative_to: 'self' }
+                        movement: { top: 10, left: 10, relative_to: 'self' }
                     })
                 })
             })

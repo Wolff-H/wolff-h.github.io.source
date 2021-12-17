@@ -62,10 +62,10 @@
             onMounted(() => {
                 nextTick(() => {
                     stickElement(ref_container.value, ref_sticker.value, {
-                        limits: { top: 0, left: 0 }
+                        movement: { top: 0, left: 0 }
                     })
                     stickElement(ref_container.value, ref_sticker_1.value, {
-                        limits: { left: 50 }
+                        movement: { left: 50 }
                     })
                 })
             })
